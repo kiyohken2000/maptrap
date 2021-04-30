@@ -1,46 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {
-  StyleSheet, Text, View, StatusBar,
-} from 'react-native'
-import Button from 'components/Button'
-import { colors } from 'theme'
+import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
+import styles from './styles'
+import { firebase } from '../../../firebase'
+import { Restart } from 'fiction-expo-restart'
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-})
+export default function Profile( props ) {
+  const userData = props.extraData
 
-const Profile = ({ navigation }) => (
-  <View style={styles.root}>
+  const signOut = () => {
+    firebase.auth().signOut()
+    Restart()
+  }
+
+  return (
+    <View style={styles.root}>
     <StatusBar barStyle="light-content" />
-    <Text style={styles.title}>Profile</Text>
-    <Button
-      title="Go to Details"
-      color="white"
-      backgroundColor={colors.lightPurple}
-      onPress={() => {
-        navigation.navigate('Details', { from: 'Profile' })
-      }}
-    />
-  </View>
-)
-
-Profile.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func }),
+      <Text>{userData.email}</Text>
+      <View style={styles.footerView}>
+        <Text onPress={signOut} style={styles.footerLink}>Sign out</Text>
+      </View>
+    </View>
+  )
 }
-
-Profile.defaultProps = {
-  navigation: { navigate: () => null },
-}
-
-export default Profile

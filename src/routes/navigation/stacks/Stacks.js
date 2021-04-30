@@ -7,6 +7,8 @@ import Details from 'scenes/details'
 import HeaderLeft from './HeaderLeft'
 import HeaderTitle from './HeaderTitle'
 
+import Login from 'scenes/login'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -71,6 +73,23 @@ export const ProfileNavigator = () => (
       options={{
         title: 'Details',
       }}
+    />
+  </Stack.Navigator>
+)
+
+export const LoginNavigator = () => (
+  <Stack.Navigator
+    initialRouteName="Login"
+    headerMode="screen"
+    screenOptions={navigationProps}
+  >
+    <Stack.Screen
+      name="Login"
+      component={Login}
+      options={({ navigation }) => ({
+        title: 'Login',
+        // headerTitle: () => <HeaderTitle />,
+      })}
     />
   </Stack.Navigator>
 )
