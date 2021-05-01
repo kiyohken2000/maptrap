@@ -10,7 +10,7 @@ import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
-import Trap from '../../scenes/trap'
+import Treasure from '../../scenes/treasure'
 import Location from '../../scenes/location'
 import Profile from '../../scenes/profile'
 import Map from '../../scenes/map'
@@ -79,8 +79,8 @@ export default function App() {
         <Stack.Screen name="Home">
           {props => <Home {...props} extraData={user} />}
         </Stack.Screen>
-        <Stack.Screen name="Trap">
-          {props => <Trap {...props} extraData={user} />}
+        <Stack.Screen name="Treasure">
+          {props => <Treasure {...props} extraData={user} />}
         </Stack.Screen>
         <Stack.Screen name="Location">
           {props => <Location {...props} extraData={user} />}

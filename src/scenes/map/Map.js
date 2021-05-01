@@ -12,7 +12,7 @@ export default function Map({ route, navigation }) {
   const location = route.params.Location.coords
   const [region, setRegion] = useState(location)
   const [modal, setToggle] = useState(false)
-  const [trapName, setTrapName] = useState('')
+  const [treasureName, setTreasureName] = useState('')
   const [comment, setComment] = useState('')
 
   const initialRegion = {
@@ -40,26 +40,28 @@ export default function Map({ route, navigation }) {
     setToggle(true)
   }
 
-  function setTrap() {
-    const trapRef = firebase.firestore().collection('trap').doc()
-    trapRef.set({
-      id: trapRef.id,
-      trapName: trapName,
+  function setTreasure() {
+    const treasureRef = firebase.firestore().collection('treasures').doc()
+    treasureRef.set({
+      id: treasureRef.id,
+      treasureName: treasureName,
       comment: comment,
       latitude: region.latitude,
       longitude: region.longitude,
       createdTime: new Date().getTime(),
-      created: data.email
+      createrEmail: data.email,
+      createrId: data.id,
+      treasureImage: 'https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=4ebae158-5b7d-4ca9-b244-21c597c8f5b4'
     })
     const userRef1 = firebase.firestore().collection('users').doc(data.id)
     userRef1.update({
-      trap: firebase.firestore.FieldValue.arrayUnion(trapRef.id)
+      treasure: firebase.firestore.FieldValue.arrayUnion(treasureRef.id)
     })
     const userRef2 = firebase.firestore().collection('users2').doc(data.email)
     userRef2.update({
-      trap: firebase.firestore.FieldValue.arrayUnion(trapRef.id)
+      treasure: firebase.firestore.FieldValue.arrayUnion(treasureRef.id)
     })
-    setTrapName('')
+    setTreasureName('')
     setComment('')
     setToggle(false)
   }
@@ -88,7 +90,7 @@ export default function Map({ route, navigation }) {
         <View style={styles.modalcontainer}>
           <View style={{ flex: 1, width: '100%' }}>
             <View style={styles.modaltitle}>
-              <Text style={styles.modalText}>Create Trap</Text>
+              <Text style={styles.modalText}>Create Treasure</Text>
             </View>
             <Divider />
               <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
@@ -106,13 +108,13 @@ export default function Map({ route, navigation }) {
                     <Text style={styles.coordinate}>{region.latitude}</Text>
                     <Text style={styles.coordinate}>{region.longitude}</Text>
                   </View>
-                  <Text>Trap Name</Text>
+                  <Text>Treasure Name</Text>
                   <Input
                     name='name'
                     placeholder="your name"
                     rounded
-                    onChangeText={(text) => setTrapName(text)}
-                    value={trapName}
+                    onChangeText={(text) => setTreasureName(text)}
+                    value={treasureName}
                   />
                   <Text>Comments</Text>
                   <Input
@@ -125,7 +127,7 @@ export default function Map({ route, navigation }) {
                     value={comment}
                   />
                   <View style={styles.buttonContainer}>
-                    {comment?<TouchableOpacity style={styles.tbutton} onPress={setTrap}>
+                    {comment?<TouchableOpacity style={styles.tbutton} onPress={setTreasure}>
                       <Text style={styles.buttonText}>Set</Text>
                     </TouchableOpacity>:
                     <View style={styles.nonbutton}>

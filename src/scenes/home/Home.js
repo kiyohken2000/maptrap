@@ -7,15 +7,15 @@ import { Divider } from 'react-native-elements'
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const userData = props.extraData
-  const traps = userData.trap
+  const treasures = userData.treasure
 
   useEffect(() => {
     setTheArray([])
-    for (const trap of traps) {
-      const trapRef = firebase.firestore().collection('trap').doc(trap)
-      trapRef.get().then((doc) => {
+    for (const treasure of treasures) {
+      const treasureRef = firebase.firestore().collection('treasures').doc(treasure)
+      treasureRef.get().then((doc) => {
         if (doc.exists) {
-          trapRef
+          treasureRef
           .onSnapshot(function(document) {
             const data = document.data()
             setTheArray(oldArray => [...oldArray, data])
@@ -35,7 +35,7 @@ export default function Home(props) {
     }
   })
 
-  var myTraps = theArray.filter(function(v1,i1,a1){ 
+  var myTreasure = theArray.filter(function(v1,i1,a1){ 
     return (a1.findIndex(function(v2){ 
       return (v1.id===v2.id) 
     }) === i1);
@@ -50,17 +50,17 @@ export default function Home(props) {
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
       <View style={{ flex: 1, width: '100%' }}>
-        <ScrollView>
+        {treasures?<ScrollView>
           {
-            myTraps.map((trap, i) => {
+            myTreasure.map((treasure, i) => {
               return (
                 <View key={i} style={styles.item}>
-                  <TouchableOpacity onPress={() => props.navigation.navigate('Trap', { trapData: trap, myProfile: userData })}>
+                  <TouchableOpacity onPress={() => props.navigation.navigate('Treasure', { treasureData: treasure, myProfile: userData })}>
                     <View style={{flexDirection: 'row'}}>
                       <View style={{ flex: 1, width: '100%' }}>
-                        <Text style={styles.title} numberOfLines={1}>{trap.trapName}</Text>
-                        <Text style={styles.comment} numberOfLines={1}>{trap.comment}</Text>
-                        <Text style={styles.date}>{displaytime(trap.createdTime)}</Text>
+                        <Text style={styles.title} numberOfLines={1}>{treasure.treasureName}</Text>
+                        <Text style={styles.comment} numberOfLines={1}>{treasure.comment}</Text>
+                        <Text style={styles.date}>{displaytime(treasure.createdTime)}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -69,7 +69,8 @@ export default function Home(props) {
               )
             })
           }
-        </ScrollView>
+        </ScrollView>:
+        <Text>No data</Text>}
       </View>
     </View>
   )

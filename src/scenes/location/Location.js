@@ -28,7 +28,7 @@ export default function Location({  route, navigation }) {
         >
           <Marker
             coordinate={coordinate}
-            title={location.trapName}
+            title={location.treasureName}
             description={location.comment}
           />
         </MapView>

@@ -7,11 +7,20 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.white,
+  },
+  imagecontainer: {
+    marginTop: 10,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems:'center',
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 40,
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
     textAlign: 'center'
   },
   field: {
