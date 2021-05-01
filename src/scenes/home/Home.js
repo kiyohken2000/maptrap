@@ -7,7 +7,7 @@ import { Divider } from 'react-native-elements'
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const userData = props.extraData
-  const treasures = userData.treasure
+  const treasures = userData.treasure?userData.treasure:'8mCYBSAT5hikQmZzNKtg'
 
   useEffect(() => {
     setTheArray([])
