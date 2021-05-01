@@ -23,8 +23,6 @@ export default function Trap({ route, navigation}) {
         <TouchableOpacity style={styles.button} onPress={goMap}>
           <Text style={styles.buttonText}>Map</Text>
         </TouchableOpacity>
-        <Text>{trap.latitude}</Text>
-        <Text>{trap.longitude}</Text>
       </View>
     </View>
   )

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import styles from './styles'
 import MapView, { Marker } from 'react-native-maps'
-import Trap from '../trap'
 
 export default function Location({  route, navigation }) {
   const location = route.params.Location
