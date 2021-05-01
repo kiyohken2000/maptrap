@@ -41,6 +41,16 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
   },
+  pbutton: {
+    backgroundColor: '#a0522d',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
   nonbutton: {
     backgroundColor: '#CCCCCC',
     marginLeft: 30,
@@ -54,5 +64,9 @@ export default StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16
+  },
+  input: {
+    marginLeft: 30,
+    marginRight: 30,
   },
 })
