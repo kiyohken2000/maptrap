@@ -58,7 +58,7 @@ export default function Treasure({ route, navigation}) {
   function delTrap() {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
     const userRef = firebase.firestore().collection('users').doc(myProfile.id)
-    const treasureRef = firebase.firestore().collection('treasure').doc(treasure.id)
+    const treasureRef = firebase.firestore().collection('treasures').doc(treasure.id)
     userRef2.update({
       treasure: firebase.firestore.FieldValue.arrayRemove(treasure.id)
     })
