@@ -9,4 +9,27 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.white,
   },
+  item: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 24,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+  },
+  comment: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-start',
+  },
+  date: {
+    fontSize: 15,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-end',
+  },
 })

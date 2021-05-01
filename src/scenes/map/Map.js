@@ -51,10 +51,6 @@ export default function Map({ route, navigation }) {
       createdTime: new Date().getTime(),
       created: data.email
     })
-    const userRef1 = firebase.firestore().collection('users').doc(data.id)
-    userRef1.update({
-      trap: firebase.firestore.FieldValue.arrayUnion(trapRef.id)
-    })
     const userRef2 = firebase.firestore().collection('users2').doc(data.email)
     userRef2.update({
       trap: firebase.firestore.FieldValue.arrayUnion(trapRef.id)

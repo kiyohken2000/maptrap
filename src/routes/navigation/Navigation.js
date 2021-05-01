@@ -10,6 +10,8 @@ import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
+import Trap from '../../scenes/trap'
+import Location from '../../scenes/location'
 import Profile from '../../scenes/profile'
 import Map from '../../scenes/map'
 import * as Notifications from 'expo-notifications'
@@ -76,6 +78,12 @@ export default function App() {
       <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
         <Stack.Screen name="Home">
           {props => <Home {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Trap">
+          {props => <Trap {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Location">
+          {props => <Location {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )

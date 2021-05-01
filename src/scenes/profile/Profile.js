@@ -49,16 +49,6 @@ export default function Profile( props ) {
           <Text style={styles.title}>{userData.fullName}</Text>
           <Text style={styles.field}>Mail:</Text>
           <Text style={styles.title}>{userData.email}</Text>
-          <Text style={styles.field}>My trap:</Text>
-          {
-            userData.trap.map((trap, i) => {
-              return (
-                <View key={i}>
-                  <Text style={styles.field}>{trap}</Text>
-                </View>
-              )
-            })
-          }
           {location?
             <TouchableOpacity style={styles.button} onPress={goMap}>
               <Text style={styles.buttonText}>Map</Text>
