@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { firebase } from '../../../firebase'
 import { colors } from 'theme'
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,6 +11,7 @@ import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
 import Profile from '../../scenes/profile'
+import Map from '../../scenes/map'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions"
 // import DrawerNavigator from './drawer'
@@ -93,6 +95,9 @@ export default function App() {
       <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
         <Stack.Screen name="Profile">
           {props => <Profile {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Map">
+          {props => <Map {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )
