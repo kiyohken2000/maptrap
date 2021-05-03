@@ -17,13 +17,27 @@ export default function Profile( props ) {
   const [avatar, setAvatar] = useState(props.extraData.avatar)
   const userData = props.extraData
 
+  const isLocationPermissionGiven = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return false;
+    }
+    let statusBackground = await Location.requestBackgroundPermissionsAsync();
+    if (statusBackground.status !== "granted") {
+      return false;
+    }
+    console.log('statusBackground',statusBackground)
+    return true;
+  }
+
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync()
+      /*let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied')
         return
-      }
+      }*/
+      isLocationPermissionGiven()
       let location = await Location.getCurrentPositionAsync({})
       setLocation(location)
     })();

@@ -1,9 +1,13 @@
 {
   "expo": {
-    "name": "maptrap",
-    "slug": "maptrap",
+    "name": "Treasure map",
+    "slug": "Treasure-map",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
@@ -15,12 +19,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.map",
       "infoPlist": {
-        "NSCameraUsageDescription": "[テスト文言]写真をアップロードするためにカメラを使用します"
+        "NSCameraUsageDescription": "[テスト文言]写真をアップロードするためにカメラを使用します",
+        "NSLocationAlwaysUsageDescription": "[テスト文言]位置情報をアップロードします",
+        "NSLocationUsageDescription": "[テスト文言]位置情報をアップロードします",
+        "NSLocationWhenInUseUsageDescription": "[テスト文言]位置情報をアップロードします",
+        "UIBackgroundModes": [
+          "location"
+        ]
       }
     },
     "android": {
@@ -36,7 +48,14 @@
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
-    }
+      "sourceExts": [
+        "js",
+        "jsx",
+        "svg",
+        "ts",
+        "tsx"
+      ]
+    },
+    "description": ""
   }
 }

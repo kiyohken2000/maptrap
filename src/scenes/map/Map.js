@@ -43,6 +43,8 @@ export default function Map({ route, navigation }) {
   function setTreasure() {
     const treasureRef = firebase.firestore().collection('treasures').doc()
     treasureRef.set({
+      identifier: treasureRef.id,
+      radius: 200,
       id: treasureRef.id,
       treasureName: treasureName,
       comment: comment,
