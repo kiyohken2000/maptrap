@@ -7,10 +7,9 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.lightGrayPurple,
   },
   imagecontainer: {
-    marginTop: 10,
-    marginBottom: 5,
     justifyContent: 'center',
     alignItems:'center',
   },
@@ -23,9 +22,20 @@ export default StyleSheet.create({
     fontSize: 24,
     textAlign: 'center'
   },
-  field: {
-    fontSize: 15,
+  description: {
+    fontSize: 14,
     textAlign: 'center'
+  },
+  coordinate: {
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  regionContainer: {
+    marginBottom: 5,
+  },
+  buttonContainer: {
+    width: '100%'
   },
   button: {
     backgroundColor: '#788eec',
@@ -33,22 +43,35 @@ export default StyleSheet.create({
     marginRight: 30,
     marginTop: 20,
     height: 48,
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: 'center',
-  },
-  delbutton: {
-    backgroundColor: '#a0522d',
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 20,
-    height: 48,
-    borderRadius: 40,
+    borderRadius: 5,
     alignItems: "center",
     justifyContent: 'center',
   },
   buttonText: {
     color: 'white',
     fontSize: 16
+  },
+  container: {
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  tbutton: {
+    backgroundColor: '#ff7f50',
+    marginTop: 20,
+    height: 48,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  nonbutton: {
+    backgroundColor: '#CCCCCC',
+    marginTop: 20,
+    height: 48,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: 'center',
   },
 })

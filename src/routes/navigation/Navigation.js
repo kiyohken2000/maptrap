@@ -15,6 +15,7 @@ import Treasure from '../../scenes/treasure'
 import Local from '../../scenes/location'
 import Profile from '../../scenes/profile'
 import Map from '../../scenes/map'
+import Set from '../../scenes/set'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions"
 // import DrawerNavigator from './drawer'
@@ -105,6 +106,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Map">
           {props => <Map {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Set">
+          {props => <Set {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )
