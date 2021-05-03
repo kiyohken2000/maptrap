@@ -16,6 +16,9 @@ import Local from '../../scenes/location'
 import Profile from '../../scenes/profile'
 import Map from '../../scenes/map'
 import Set from '../../scenes/set'
+import Items from '../../scenes/items'
+import Item from '../../scenes/item'
+import Discover from '../../scenes/discover'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions"
 // import DrawerNavigator from './drawer'
@@ -114,6 +117,22 @@ export default function App() {
     )
   }
 
+  const ItemsNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Items">
+          {props => <Items {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Item">
+          {props => <Item {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Discover">
+          {props => <Discover {...props} extraData={user} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+
   const TabNavigator = () => (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -123,6 +142,15 @@ export default function App() {
               return (
                 <FontIcon
                   name="home"
+                  color={focused ? colors.lightPurple : colors.gray}
+                  size={20}
+                  solid
+                />
+              )
+            case 'Items':
+              return (
+                <FontIcon
+                  name="gift"
                   color={focused ? colors.lightPurple : colors.gray}
                   size={20}
                   solid
@@ -150,6 +178,7 @@ export default function App() {
       swipeEnabled={false}
     >
       <Tab.Screen name="Home" component={HomeNavigator} />
+      <Tab.Screen name="Items" component={ItemsNavigator} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
     </Tab.Navigator>
   )

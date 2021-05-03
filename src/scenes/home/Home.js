@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../../firebase'
-import { Divider } from 'react-native-elements'
+import { Divider, Avatar } from 'react-native-elements'
 import * as Location from "expo-location"
 import * as TaskManager from 'expo-task-manager'
 import * as Notifications from 'expo-notifications'
@@ -68,15 +68,15 @@ export default function Home(props) {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-      await Location.startGeofencingAsync("test", [
-        {
+      await Location.startGeofencingAsync("test", 
+        [{
           identifier: "test-1",
           latitude: 37.95699846221934,
           longitude: 139.14524414682023,
           radius: 200,
           comment: 'we',
-        },
-      ]);
+        }],
+      );
     })();
     setTheArray([])
     for (const treasure of treasures) {
@@ -125,9 +125,12 @@ export default function Home(props) {
                 <View key={i} style={styles.item}>
                   <TouchableOpacity onPress={() => props.navigation.navigate('Treasure', { treasureData: treasure, myProfile: userData })}>
                     <View style={{flexDirection: 'row'}}>
+                      <View style={styles.imagecontainer}>
+                        <Image source={{uri: treasure.treasureImage}} style={styles.image}/>
+                      </View>
                       <View style={{ flex: 1, width: '100%' }}>
-                        <Text style={styles.title} numberOfLines={1}>{treasure.treasureName}</Text>
-                        <Text style={styles.comment} numberOfLines={1}>{treasure.comment}</Text>
+                        <Text style={styles.title} numberOfLines={2}>{treasure.treasureName}</Text>
+                        <Text style={styles.comment} numberOfLines={2}>{treasure.comment}</Text>
                         <Text style={styles.date}>{displaytime(treasure.createdTime)}</Text>
                       </View>
                     </View>
