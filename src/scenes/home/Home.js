@@ -42,12 +42,9 @@ export default function Home(props) {
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(
-      (res) => {
-        const data = res.notification.request.content.data;
-        console.log('data')
-      }
-    );
+    const subscription = Notifications.addNotificationResponseReceivedListener(e => {
+      console.log(e.notification.request.content.body);
+    })
     subscription.remove();
     (async () => {
       const treasuresRef = firebase.firestore().collection('treasures')
