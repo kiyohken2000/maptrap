@@ -44,6 +44,7 @@ export default function Home(props) {
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(e => {
       console.log(e.notification.request.content.body);
+      alert('notification', e.notification.request.content.body)
     })
     subscription.remove();
     (async () => {
