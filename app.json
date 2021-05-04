@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Find Good One",
-    "slug": "FindGoodOne",
+    "slug": "findgoodone",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -28,9 +28,9 @@
       "bundleIdentifier": "net.votepurchase.fgo",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
-        "NSLocationAlwaysUsageDescription": "Use it to find the placed treasure.",
-        "NSLocationUsageDescription": "Used to place treasure.",
-        "NSLocationWhenInUseUsageDescription": "Used to place treasure.",
+        "NSLocationAlwaysUsageDescription": "Used to find placed treasures.",
+        "NSLocationUsageDescription": "Used to set your treasure.",
+        "NSLocationWhenInUseUsageDescription": "Used to set your treasure.",
         "UIBackgroundModes": [
           "location"
         ]
