@@ -42,6 +42,13 @@ export default function Home(props) {
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
   useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (res) => {
+        const data = res.notification.request.content.data;
+        console.log('data')
+      }
+    );
+    subscription.remove();
     (async () => {
       const treasuresRef = firebase.firestore().collection('treasures')
       treasuresRef
@@ -69,13 +76,7 @@ export default function Home(props) {
         return;
       }
       await Location.startGeofencingAsync("test", 
-        [{
-          identifier: "test-1",
-          latitude: 37.95699846221934,
-          longitude: 139.14524414682023,
-          radius: 200,
-          comment: 'we',
-        }],
+        treasuresArray,
       );
     })();
     setTheArray([])
