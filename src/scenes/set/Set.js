@@ -14,7 +14,7 @@ export default function Set({ route, navigation }) {
   const [treasureName, setTreasureName] = useState('')
   const [comment, setComment] = useState('')
   const [progress, setProgress] = useState('')
-  const [treasureImage, setTreasureImage] = useState('https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=4ebae158-5b7d-4ca9-b244-21c597c8f5b4')
+  const [treasureImage, setTreasureImage] = useState('https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=761783a0-6e90-4b9f-a46d-c753523e9f25')
 
   const ImageChoiceAndUpload = async () => {
     try {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Treasure map",
-    "slug": "Treasure-map",
+    "name": "Find Good One",
+    "slug": "FindGoodOne",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -17,33 +17,31 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "fallbackToCacheTimeout": 10000
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "net.votepurchase.map",
+      "bundleIdentifier": "net.votepurchase.fgo",
       "infoPlist": {
-        "NSCameraUsageDescription": "[テスト文言]写真をアップロードするためにカメラを使用します",
-        "NSLocationAlwaysUsageDescription": "[テスト文言]位置情報をアップロードします",
-        "NSLocationUsageDescription": "[テスト文言]位置情報をアップロードします",
-        "NSLocationWhenInUseUsageDescription": "[テスト文言]位置情報をアップロードします",
+        "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
+        "NSLocationAlwaysUsageDescription": "Use it to find the placed treasure.",
+        "NSLocationUsageDescription": "Used to place treasure.",
+        "NSLocationWhenInUseUsageDescription": "Used to place treasure.",
         "UIBackgroundModes": [
           "location"
         ]
       }
     },
     "android": {
-      "package": "net.votepurchase.map",
+      "package": "net.votepurchase.fgo",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "VIBRATE"
+        "MANAGE_EXTERNAL_STORAGE"
       ]
     },
     "packagerOpts": {

@@ -31,7 +31,7 @@ export default function Registration({navigation}) {
           id: uid,
           email,
           fullName,
-          avatar: 'https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=4ebae158-5b7d-4ca9-b244-21c597c8f5b4',
+          avatar: 'https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=761783a0-6e90-4b9f-a46d-c753523e9f25',
         };
         const usersRef = firebase.firestore().collection('users')
         const usersRef2 = firebase.firestore().collection('users2')
@@ -111,8 +111,8 @@ export default function Registration({navigation}) {
         <View style={styles.footerView}>
           <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
         </View>
-        <Text style={styles.link} onPress={ ()=>{ Linking.openURL('https://pinepro.ml')}}>Require agree EULA</Text>
-        <Text style={styles.contact}>pinepro.staff@gmail.com</Text>
+        <Text style={styles.link} onPress={ ()=>{ Linking.openURL('https://findgoodone.ml')}}>Require agree EULA</Text>
+        <Text style={styles.contact}>findgoodone.staff@gmail.com</Text>
       </KeyboardAwareScrollView>
       <Spinner
         visible={spinner}
