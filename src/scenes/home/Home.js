@@ -15,12 +15,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-Notifications.addNotificationResponseReceivedListener(e => {
-  console.log("addNotificationResponseReceivedListener", e);
-  const treasureID = e.notification.request.content.data.id
-  props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
-});
-
 TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
   if (error) {
     // check `error.message` for more details.
@@ -46,6 +40,11 @@ export default function Home(props) {
   const [errorMsg, setErrorMsg] = useState(null)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
+
+  Notifications.addNotificationResponseReceivedListener(e => {
+    const treasureID = e.notification.request.content.data.id
+    props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
+  });
 
   useEffect(() => {
     (async () => {
