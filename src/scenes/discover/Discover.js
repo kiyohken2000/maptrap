@@ -39,6 +39,7 @@ export default function Discover({ route, navigation}) {
     treasureRef.update({
       picked: firebase.firestore.FieldValue.arrayUnion(userData.email)
     })
+    setDialog(false)
     // navigation.goBack()
   }
 
