@@ -43,6 +43,8 @@ export default function Home(props) {
 
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(e => {
+      alert('notification')
+      console.log(e)
       const treasureID = e.notification.request.content.data.id
       props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
     })
