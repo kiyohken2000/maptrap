@@ -4,8 +4,9 @@ import styles from './styles'
 import { firebase } from '../../../firebase'
 import { Divider } from 'react-native-elements'
 
-export default function Discover(props) {
-  const userData = props.extraData
+export default function Discover({ route, navigation}) {
+  const userData = route.params.myProfile
+  const treasureID = route.params.treasureID
 
   return (
     <View style={styles.root}>
