@@ -129,9 +129,6 @@ export default function App() {
         <Stack.Screen name="Item">
           {props => <Item {...props} extraData={user} />}
         </Stack.Screen>
-        <Stack.Screen name="Discover">
-          {props => <Discover {...props} extraData={user} />}
-        </Stack.Screen>
       </Stack.Navigator>
     )
   }

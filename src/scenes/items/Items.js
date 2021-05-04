@@ -14,9 +14,6 @@ export default function Items(props) {
         <TouchableOpacity onPress={() => props.navigation.navigate('Item', { myProfile: userData })}>
           <Text>go to item</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Discover')}>
-          <Text>go to discover</Text>
-        </TouchableOpacity>
       </View>
     </View>
   )

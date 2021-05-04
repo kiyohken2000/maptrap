@@ -14,6 +14,7 @@ export default function Discover({ route, navigation}) {
       <View style={{ flex: 1, width: '100%' }}>
         <Text>Discover screen</Text>
         <Text>{userData.fullName}</Text>
+        <Text>{treasureID}</Text>
       </View>
     </View>
   )
