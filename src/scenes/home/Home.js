@@ -25,8 +25,8 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
     /*alert(`in ${region.identifier}`)*/
     Notifications.scheduleNotificationAsync({
       content: {
-        title: region.identifier,
-        body: 'Entry my geofence',
+        title: 'Discovering!!!',
+        body: 'Tap to get it.',
         data: { message: 'geofence notification message', id: region.identifier },
       },
       trigger: null //{ seconds: 1 }
