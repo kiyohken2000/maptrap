@@ -67,7 +67,7 @@ export default function Discover({ route, navigation}) {
         <Text style={styles.field}>Comment:</Text>
         <Text style={styles.title}>{treasure.comment}</Text>
         <TouchableOpacity style={styles.get} onPress={() => setDialog(true)}>
-          <Text style={styles.buttonText}>Get this Treasure</Text>
+          <Text style={styles.buttonText}>Get this Item</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goMap}>
           <Text style={styles.buttonText}>Map</Text>

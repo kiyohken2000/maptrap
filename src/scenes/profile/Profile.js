@@ -144,7 +144,7 @@ export default function Profile( props ) {
               <Text style={styles.buttonText}>Map</Text>
             </TouchableOpacity>:
             <View style={styles.nonbutton}>
-              <Text style={styles.buttonText}>Map</Text>
+              <Text style={styles.buttonText}>Waiting...</Text>
             </View>
           }
           <View style={styles.footerView}>

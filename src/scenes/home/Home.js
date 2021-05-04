@@ -27,7 +27,7 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
       content: {
         title: 'Discovering!!!',
         body: 'Tap to get it.',
-        data: { message: 'geofence notification message', id: region.identifier },
+        data: { message: 'geofence notification message', id: region.identifier, type: 'local' },
       },
       trigger: null //{ seconds: 1 }
     });
@@ -42,8 +42,10 @@ export default function Home(props) {
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
   Notifications.addNotificationResponseReceivedListener(e => {
-    const treasureID = e.notification.request.content.data.id
-    props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
+    if (e.content.data.type == 'local') {
+      const treasureID = e.notification.request.content.data.id
+      props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
+    } else { null }
   });
 
   useEffect(() => {
