@@ -15,8 +15,10 @@ Notifications.setNotificationHandler({
   }),
 });
 
-Notifications.addNotificationResponseReceivedListener(response => {
-  console.log("addNotificationResponseReceivedListener", response);
+Notifications.addNotificationResponseReceivedListener(e => {
+  console.log("addNotificationResponseReceivedListener", e);
+  const treasureID = e.notification.request.content.data.id
+  props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
 });
 
 TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
