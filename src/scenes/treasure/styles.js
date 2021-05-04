@@ -51,4 +51,13 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 16
   },
+  avatar: {
+    margin: 10,
+    alignSelf: "center",
+  },
+  picked: {
+    marginTop: 20,
+    fontSize: 15,
+    textAlign: 'center'
+  },
 })

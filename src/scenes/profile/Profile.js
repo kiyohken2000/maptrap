@@ -92,11 +92,15 @@ export default function Profile( props ) {
   }
 
   function goMap() {
-    const treasureNum = userData.treasure.length
-    if (treasureNum < 10) {
-      props.navigation.navigate('Map', {Data: userData, Location: location})
+    if (userData.treasure != undefined) {
+      const treasureNum = userData.treasure.length
+      if (treasureNum < 10) {
+        props.navigation.navigate('Map', {Data: userData, Location: location})
+      } else {
+        alert('The maximum number of treasures that can be placed is 10.')
+      }
     } else {
-      alert('The maximum number of treasures that can be placed is 10.')
+      props.navigation.navigate('Map', {Data: userData, Location: location})
     }
   }
 

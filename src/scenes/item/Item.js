@@ -7,6 +7,8 @@ import { Divider, Avatar } from 'react-native-elements'
 export default function Item({ route, navigation }) {
   const userData = route.params.myProfile
   const item = route.params.itemData
+  const picked = item.picked?item.picked:[userData.email]
+  const [theArray, setTheArray] = useState([])
   const [user, setUser] = useState([])
 
   useEffect(() => {
@@ -22,7 +24,26 @@ export default function Item({ route, navigation }) {
         null
       }
     })
+    setTheArray([])
+    for (const u of picked) {
+      const usersRef = firebase.firestore().collection('users2').doc(u)
+      usersRef.get().then((doc) => {
+        if (doc.exists) {
+          usersRef
+          .onSnapshot(function(document) {
+            const data = document.data()
+            setTheArray(oldArray => [...oldArray, data])
+          })
+        } else {
+          null
+        }
+      })
+    }
   },[])
+
+  theArray.reverse()
+
+  const n = theArray.length
 
   function goMap() {
     navigation.navigate('Location', {Location: item})
@@ -71,6 +92,25 @@ export default function Item({ route, navigation }) {
         <TouchableOpacity style={styles.dumpbutton} onPress={dump}>
           <Text style={styles.buttonText}>Dump</Text>
         </TouchableOpacity>
+        <Divider />
+        <Text style={styles.picked}>Picked up users: {n}</Text>
+        {
+          theArray.map((u, i) => {
+            return (
+              <View key={i} style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={styles.avatar}>
+                  <Avatar
+                    size="large"
+                    rounded
+                    title="NI"
+                    source={{ uri: u.avatar }}
+                  />
+                </View>
+                  <Text style={styles.title} numberOfLines={1}>{u.fullName}</Text>
+              </View>
+            )
+          })
+        }
       </ScrollView>
     </View>
   )

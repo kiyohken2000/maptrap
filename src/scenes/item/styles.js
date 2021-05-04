@@ -56,4 +56,9 @@ export default StyleSheet.create({
     margin: 10,
     alignSelf: "center",
   },
+  picked: {
+    marginTop: 20,
+    fontSize: 15,
+    textAlign: 'center'
+  },
 })

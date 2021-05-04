@@ -2,10 +2,35 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../../firebase'
+import { Divider, Avatar } from 'react-native-elements'
 
 export default function Treasure({ route, navigation}) {
   const treasure = route.params.treasureData
   const myProfile = route.params.myProfile
+  const picked = treasure.picked?treasure.picked:[myProfile.email]
+  const [theArray, setTheArray] = useState([])
+
+  useEffect(() => {
+    setTheArray([])
+    for (const u of picked) {
+      const usersRef = firebase.firestore().collection('users2').doc(u)
+      usersRef.get().then((doc) => {
+        if (doc.exists) {
+          usersRef
+          .onSnapshot(function(document) {
+            const data = document.data()
+            setTheArray(oldArray => [...oldArray, data])
+          })
+        } else {
+          null
+        }
+      })
+    }
+  },[])
+
+  theArray.reverse()
+
+  const n = theArray.length
 
   function goMap() {
     navigation.navigate('Location', {Location: treasure})
@@ -46,6 +71,25 @@ export default function Treasure({ route, navigation}) {
         <TouchableOpacity style={styles.delbutton} onPress={delTreasure}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
+        <Divider />
+        <Text style={styles.picked}>Picked up users: {n}</Text>
+        {
+          theArray.map((u, i) => {
+            return (
+              <View key={i} style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={styles.avatar}>
+                  <Avatar
+                    size="large"
+                    rounded
+                    title="NI"
+                    source={{ uri: u.avatar }}
+                  />
+                </View>
+                  <Text style={styles.title} numberOfLines={1}>{u.fullName}</Text>
+              </View>
+            )
+          })
+        }
       </ScrollView>
     </View>
   )
