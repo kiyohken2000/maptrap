@@ -3,11 +3,13 @@ import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } 
 import styles from './styles'
 import { firebase } from '../../../firebase'
 import { Divider } from 'react-native-elements'
+import Dialog from 'react-native-dialog'
 
 export default function Discover({ route, navigation}) {
   const userData = route.params.myProfile
   const treasureID = route.params.treasureID
   const [treasure, setTreasure] = useState([])
+  const [dialog, setDialog] = useState(false)
 
   useEffect(() => {
     const treasureRef = firebase.firestore().collection('treasures').doc(treasureID)
@@ -32,6 +34,10 @@ export default function Discover({ route, navigation}) {
     })
     userRef.update({
       items: firebase.firestore.FieldValue.arrayUnion(treasure.id)
+    })
+    const treasureRef = firebase.firestore().collection('treasures').doc(treasure.id)
+    treasureRef.update({
+      picked: firebase.firestore.FieldValue.arrayUnion(userData.email)
     })
     // navigation.goBack()
   }
@@ -59,7 +65,7 @@ export default function Discover({ route, navigation}) {
         <Text style={styles.title}>{treasure.treasureName}</Text>
         <Text style={styles.field}>Comment:</Text>
         <Text style={styles.title}>{treasure.comment}</Text>
-        <TouchableOpacity style={styles.get} onPress={getItem}>
+        <TouchableOpacity style={styles.get} onPress={() => setDialog(true)}>
           <Text style={styles.buttonText}>Get this Treasure</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goMap}>
@@ -72,6 +78,11 @@ export default function Discover({ route, navigation}) {
           <Text style={styles.buttonText}>Report</Text>
         </TouchableOpacity>
       </ScrollView>
+      <Dialog.Container visible={dialog}>
+        <Dialog.Title>When you get it, you will be published.</Dialog.Title>
+        <Dialog.Button label="Get" bold={true} onPress={() => getItem()} />
+        <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
+      </Dialog.Container>
     </View>
   )
 }

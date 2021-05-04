@@ -9,29 +9,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.white,
   },
-  item: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  title: {
-    fontSize: 24,
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 10,
-  },
-  comment: {
-    fontSize: 15,
-    marginBottom: 5,
-    marginLeft: 10,
-    opacity: 0.4,
-    alignSelf: 'flex-start',
-  },
-  date: {
-    fontSize: 15,
-    marginLeft: 10,
-    opacity: 0.4,
-    alignSelf: 'flex-end',
-  },
   imagecontainer: {
     marginTop: 10,
     marginBottom: 5,
@@ -39,8 +16,44 @@ export default StyleSheet.create({
     alignItems:'center',
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
+    width: 250,
+    height: 250,
+    borderRadius: 40,
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center'
+  },
+  field: {
+    fontSize: 15,
+    textAlign: 'center'
+  },
+  button: {
+    backgroundColor: '#788eec',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  dumpbutton: {
+    backgroundColor: '#a0522d',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16
+  },
+  avatar: {
+    margin: 10,
+    alignSelf: "center",
   },
 })
