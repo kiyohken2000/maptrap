@@ -27,7 +27,7 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
       content: {
         title: region.identifier,
         body: 'Entry my geofence',
-        data: { message: 'geofence notification message', },
+        data: { message: 'geofence notification message', id: region.identifier },
       },
       trigger: null //{ seconds: 1 }
     });
@@ -43,8 +43,8 @@ export default function Home(props) {
 
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(e => {
-      console.log(e.notification.request.content.body);
-      alert('notification', e.notification.request.content.body)
+      const treasureID = e.notification.request.content.data.id
+      props.navigation.navigate('Discover', { treasureID: treasureID })
     })
     subscription.remove();
     (async () => {
@@ -73,9 +73,7 @@ export default function Home(props) {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-      await Location.startGeofencingAsync("test", 
-        treasuresArray,
-      );
+      await Location.startGeofencingAsync("test", treasuresArray, );
     })();
     setTheArray([])
     for (const treasure of treasures) {

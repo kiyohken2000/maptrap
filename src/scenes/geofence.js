@@ -34,40 +34,40 @@ export default function geofence() {
   const [treasuresArray, setTreasures] = useState([])
   const [errorMsg, setErrorMsg] = useState(null)
   
-  (async () => {
-    const treasuresRef = firebase.firestore().collection('treasures')
-    treasuresRef
-    .onSnapshot(querySnapshot => {
-      const treasures = querySnapshot.docs.map(documentSnapshot => {
-        const data = documentSnapshot.data()
-        return {
-          identifier: data.identifier,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          radius: data.radius,
-        };
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+      alert(response)
+    })
+    subscription.remove();
+    (async () => {
+      const treasuresRef = firebase.firestore().collection('treasures')
+      treasuresRef
+      .onSnapshot(querySnapshot => {
+        const treasures = querySnapshot.docs.map(documentSnapshot => {
+          const data = documentSnapshot.data()
+          return {
+            identifier: data.identifier,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            radius: data.radius,
+          };
+        });
+        setTreasures(treasures);
+        console.log(treasuresArray)
       });
-      setTreasures(treasures);
-      console.log(treasuresArray)
-    });
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-    let bg = await Location.requestBackgroundPermissionsAsync();
-    if (bg.status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-    await Location.startGeofencingAsync("test", 
-      [{
-        identifier: "test-1",
-        latitude: 37.95699846221934,
-        longitude: 139.14524414682023,
-        radius: 200,
-        comment: 'we',
-      }],
-    );
-  })();
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let bg = await Location.requestBackgroundPermissionsAsync();
+      if (bg.status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      await Location.startGeofencingAsync("test", 
+        treasuresArray,
+      );
+    })();
+  },[])
 }
