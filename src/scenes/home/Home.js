@@ -42,7 +42,7 @@ export default function Home(props) {
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
   Notifications.addNotificationResponseReceivedListener(e => {
-    if (e.content.data.type == 'local') {
+    if (e.notification.request.content.data.type == 'local') {
       const treasureID = e.notification.request.content.data.id
       props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
     } else { null }
