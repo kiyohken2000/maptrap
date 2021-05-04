@@ -15,6 +15,10 @@ Notifications.setNotificationHandler({
   }),
 });
 
+Notifications.addNotificationResponseReceivedListener(response => {
+  console.log("addNotificationResponseReceivedListener", response);
+});
+
 TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
   if (error) {
     // check `error.message` for more details.
@@ -42,13 +46,6 @@ export default function Home(props) {
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(e => {
-      alert('notification')
-      console.log(e)
-      const treasureID = e.notification.request.content.data.id
-      props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
-    })
-    subscription.remove();
     (async () => {
       const treasuresRef = firebase.firestore().collection('treasures')
       treasuresRef
