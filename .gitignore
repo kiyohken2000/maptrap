@@ -12,3 +12,4 @@ web-report/
 *.idea
 *.DS_Store
 firebase.js
+google-services.json
