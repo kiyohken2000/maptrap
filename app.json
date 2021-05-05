@@ -25,7 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "net.votepurchase.fgo",
+      "bundleIdentifier": "net.votepurchase.findgoodone",
       "buildNumber": "1.0.0",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
