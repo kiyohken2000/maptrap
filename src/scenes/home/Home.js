@@ -65,7 +65,23 @@ export default function Home(props) {
         setTreasures(treasures);
         console.log(treasuresArray)
       });
+      Location.startGeofencingAsync("test", treasuresArray, );
       return () => treasuresRef()
+  },[])
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let bg = await Location.requestBackgroundPermissionsAsync();
+      if (bg.status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
   },[])
 
   useEffect(() => {
