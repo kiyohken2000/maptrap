@@ -51,8 +51,9 @@ export default function Home(props) {
   });
 
   useEffect(() => {
+    (async () => {
       const treasuresRef = firebase.firestore().collection('treasures')
-      .onSnapshot(querySnapshot => {
+      await treasuresRef.onSnapshot(querySnapshot => {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           return {
@@ -65,8 +66,8 @@ export default function Home(props) {
         setTreasures(treasures);
         console.log(treasuresArray)
       });
-      Location.startGeofencingAsync("test", treasuresArray, );
-      return () => treasuresRef()
+      await Location.startGeofencingAsync("test", treasuresArray, );
+    })();
   },[])
 
   useEffect(() => {
