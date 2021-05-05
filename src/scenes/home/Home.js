@@ -38,6 +38,7 @@ export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
   const [errorMsg, setErrorMsg] = useState(null)
+  const [count, setCount] = useState(0)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
@@ -51,9 +52,15 @@ export default function Home(props) {
   });
 
   useEffect(() => {
-    (async () => {
+    const interval = setInterval(() => {
+      setCount(c => c + 1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
       const treasuresRef = firebase.firestore().collection('treasures')
-      await treasuresRef.onSnapshot(querySnapshot => {
+      .onSnapshot(querySnapshot => {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           return {
@@ -66,9 +73,9 @@ export default function Home(props) {
         setTreasures(treasures);
         console.log(treasuresArray)
       });
-      await Location.startGeofencingAsync("test", treasuresArray, );
-    })();
-  },[])
+      Location.startGeofencingAsync("test", treasuresArray, );
+      return () => treasuresRef()
+  },[count])
 
   useEffect(() => {
     (async () => {
