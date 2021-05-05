@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.fgo",
-      "buildNumber": "1.0.1",
+      "buildNumber": "1.0.0",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
         "NSLocationAlwaysUsageDescription": "Used to find placed treasures.",
