@@ -6,6 +6,7 @@ import { Divider, Avatar } from 'react-native-elements'
 import * as Location from "expo-location"
 import * as TaskManager from 'expo-task-manager'
 import * as Notifications from 'expo-notifications'
+import Icon from 'react-native-vector-icons/Feather'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -38,6 +39,7 @@ export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
   const [errorMsg, setErrorMsg] = useState(null)
+  const [scan, setScan] = useState(false)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
@@ -50,24 +52,36 @@ export default function Home(props) {
      }
   });
 
+  function start() {
+    setScan(true)
+    const arry = treasuresArray
+    console.log('start scan', arry)
+    Location.startGeofencingAsync("test", arry, );
+  }
+
+  function stop() {
+    console.log('stop scan')
+    setScan(false)
+    Location.stopGeofencingAsync("test")
+  }
+
   useEffect(() => {
-      const treasuresRef = firebase.firestore().collection('treasures')
-      .onSnapshot(querySnapshot => {
-        const treasures = querySnapshot.docs.map(documentSnapshot => {
-          const data = documentSnapshot.data()
-          return {
-            identifier: data.identifier,
-            latitude: data.latitude,
-            longitude: data.longitude,
-            radius: data.radius,
-          };
-        });
-        setTreasures(treasures);
-        console.log(treasuresArray)
+    const treasuresRef = firebase.firestore().collection('treasures')
+    .onSnapshot(querySnapshot => {
+      const treasures = querySnapshot.docs.map(documentSnapshot => {
+        const data = documentSnapshot.data()
+        return {
+          identifier: data.identifier,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          radius: data.radius,
+        };
       });
-      Location.startGeofencingAsync("test", treasuresArray, );
-      return () => treasuresRef()
-  },[theArray])
+      setTreasures(treasures);
+      console.log(treasuresArray)
+    });
+    return () => treasuresRef()
+  },[])
 
   useEffect(() => {
     (async () => {
@@ -149,6 +163,23 @@ export default function Home(props) {
           }
         </ScrollView>:
         <Text>No data</Text>}
+      </View>
+      <View style={styles.Overlay}>
+        <View style={{ flexDirection: 'row'}}>
+          <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
+            {treasuresArray ?
+              (scan ?
+                (<TouchableOpacity onPress={stop}>
+                  <Icon name="stop-circle" size={65} color="orange"/>
+                </TouchableOpacity>) :
+                (<TouchableOpacity onPress={start}>
+                  <Icon name="play-circle" size={65} color="orange"/>
+                </TouchableOpacity>)
+              ) :
+              (null)
+            }
+          </View>
+        </View>
       </View>
     </View>
   )

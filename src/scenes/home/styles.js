@@ -43,4 +43,12 @@ export default StyleSheet.create({
     height: 100,
     borderRadius: 20,
   },
+  Overlay: {
+    flex: 1,
+    position: "absolute",
+    opacity: 1.0,
+    bottom: 60,
+    right: 30,
+    justifyContent: "center",
+  },
 })
