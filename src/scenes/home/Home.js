@@ -38,7 +38,6 @@ export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
   const [errorMsg, setErrorMsg] = useState(null)
-  const [count, setCount] = useState(0)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
 
@@ -50,13 +49,6 @@ export default function Home(props) {
       props.navigation.navigate('Home')
      }
   });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount(c => c + 1);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
       const treasuresRef = firebase.firestore().collection('treasures')
@@ -75,7 +67,7 @@ export default function Home(props) {
       });
       Location.startGeofencingAsync("test", treasuresArray, );
       return () => treasuresRef()
-  },[count])
+  },[theArray])
 
   useEffect(() => {
     (async () => {
