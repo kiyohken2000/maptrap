@@ -51,9 +51,7 @@ export default function Home(props) {
   });
 
   useEffect(() => {
-    (async () => {
       const treasuresRef = firebase.firestore().collection('treasures')
-      treasuresRef
       .onSnapshot(querySnapshot => {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
@@ -67,18 +65,10 @@ export default function Home(props) {
         setTreasures(treasures);
         console.log(treasuresArray)
       });
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let bg = await Location.requestBackgroundPermissionsAsync();
-      if (bg.status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      await Location.startGeofencingAsync("test", treasuresArray, );
-    })();
+      return () => treasuresRef()
+  },[])
+
+  useEffect(() => {
     setTheArray([])
     for (const treasure of treasures) {
       const treasureRef = firebase.firestore().collection('treasures').doc(treasure)
