@@ -29,8 +29,8 @@
       "buildNumber": "1.0.2",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
-        "NSLocationWhenInUseUsageDescription": "Used to set your treasure.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Used to set your treasure and find placed treasures.",
+        "NSLocationWhenInUseUsageDescription": "Used to set your treasure.",
         "NSLocationAlwaysUsageDescription": "Used to find placed treasures.",
         "UIBackgroundModes": [
           "location"

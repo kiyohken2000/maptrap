@@ -55,7 +55,7 @@ export default function Home(props) {
   function start() {
     setScan(true)
     const arry = treasuresArray
-    console.log('start scan', arry)
+    console.log('start scan')
     Location.startGeofencingAsync("test", arry, );
   }
 
@@ -78,7 +78,6 @@ export default function Home(props) {
         };
       });
       setTreasures(treasures);
-      console.log(treasuresArray)
     });
     return () => treasuresRef()
   },[])
