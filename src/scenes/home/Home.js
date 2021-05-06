@@ -83,7 +83,7 @@ export default function Home(props) {
     return () => treasuresRef()
   },[])
 
-  useEffect(() => {
+  /*useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -96,7 +96,7 @@ export default function Home(props) {
         return;
       }
     })();
-  },[])
+  },[])*/
 
   useEffect(() => {
     setTheArray([])
@@ -170,7 +170,7 @@ export default function Home(props) {
             {treasuresArray ?
               (scan ?
                 (<TouchableOpacity onPress={stop}>
-                  <Icon name="stop-circle" size={65} color="orange"/>
+                  <Icon name="stop-circle" size={65} color="red"/>
                 </TouchableOpacity>) :
                 (<TouchableOpacity onPress={start}>
                   <Icon name="play-circle" size={65} color="orange"/>
