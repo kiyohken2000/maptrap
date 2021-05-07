@@ -25,7 +25,6 @@ export default function Location({  route, navigation }) {
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
-          provider={PROVIDER_GOOGLE}
         >
           <Marker
             coordinate={coordinate}
