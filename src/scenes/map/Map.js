@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, Platform } from 'react-native'
 import styles from './styles'
-import MapView, { Marker } from 'react-native-maps'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
 export default function Map({ route, navigation }) {
   const data = route.params.Data
@@ -33,6 +33,7 @@ export default function Map({ route, navigation }) {
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
       <View style={styles.mapcontainer}>
+      {Platform.OS === 'ios'?
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
@@ -42,7 +43,19 @@ export default function Map({ route, navigation }) {
             coordinate={coordinate}
             onPress={setTreasure}
           />
+        </MapView>:
+        <MapView
+          style={styles.map}
+          initialRegion={initialRegion}
+          provider={PROVIDER_GOOGLE}
+          onPress={(e)=> { stopPropagation( setRegion(e.nativeEvent.coordinate) ) }}
+        >
+          <Marker
+            coordinate={coordinate}
+            onPress={setTreasure}
+          />
         </MapView>
+      }
       </View>
     </View>
   )

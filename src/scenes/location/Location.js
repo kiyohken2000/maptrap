@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
+import { Text, View, StatusBar, Platform } from 'react-native'
 import styles from './styles'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
@@ -22,6 +22,7 @@ export default function Location({  route, navigation }) {
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
       <View style={styles.mapcontainer}>
+      {Platform.OS === 'ios'?
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
@@ -31,7 +32,19 @@ export default function Location({  route, navigation }) {
             title={location.treasureName}
             description={location.comment}
           />
+        </MapView>:
+        <MapView
+          style={styles.map}
+          initialRegion={initialRegion}
+          provider={PROVIDER_GOOGLE}
+        >
+          <Marker
+            coordinate={coordinate}
+            title={location.treasureName}
+            description={location.comment}
+          />
         </MapView>
+      }
       </View>
     </View>
   )

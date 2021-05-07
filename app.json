@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.findgoodone",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.3",
       "config": {
         "googleMapsApiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
       },
@@ -42,11 +42,11 @@
     },
     "android": {
       "package": "net.votepurchase.fgo",
-      "versionCode": 4,
+      "versionCode": 5,
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyC6zEvkDHr2cwrCwD5Pz4d8qvkWoXtSSRU"
+          "apiKey": "AIzaSyC9ykCsRaEPmlMQ-vHqHzCkB34h0mkx_7c"
         }
       },
       "permissions": [
