@@ -36,7 +36,6 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
-  const [errorMsg, setErrorMsg] = useState(null)
   const [scan, setScan] = useState(false)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
@@ -64,8 +63,8 @@ export default function Home(props) {
   }
 
   useEffect(() => {
-    const t = userData.treasure?userData.treasure:'D3N1apQknuBQX51MxFmG'
-    const i = userData.items?userData.items:'D3N1apQknuBQX51MxFmG'
+    const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
+    const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
     const l = t.concat(i)
     const treasuresRef = firebase.firestore().collection('treasures')
     .onSnapshot(querySnapshot => {
