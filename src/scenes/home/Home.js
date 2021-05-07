@@ -22,8 +22,6 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
     return;
   }
   if (eventType === Location.LocationGeofencingEventType.Enter) {
-    console.log("You've entered region:", region);
-    /*alert(`in ${region.identifier}`)*/
     Notifications.scheduleNotificationAsync({
       content: {
         title: 'Discovering!!!',
@@ -81,21 +79,6 @@ export default function Home(props) {
     });
     return () => treasuresRef()
   },[])
-
-  /*useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let bg = await Location.requestBackgroundPermissionsAsync();
-      if (bg.status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-    })();
-  },[])*/
 
   useEffect(() => {
     setTheArray([])
