@@ -45,9 +45,7 @@
       "versionCode": 5,
       "googleServicesFile": "./google-services.json",
       "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyC9ykCsRaEPmlMQ-vHqHzCkB34h0mkx_7c"
-        }
+        "googleMaps": { "apiKey": "AIzaSyCVUoioRKYvzuPpToNSTvGQJ-wMawWcHog" }
       },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
