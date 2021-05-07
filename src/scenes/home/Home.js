@@ -64,18 +64,32 @@ export default function Home(props) {
   }
 
   useEffect(() => {
+    const t = userData.treasure
+    const i = userData.items
+    const l = t.concat(i)
     const treasuresRef = firebase.firestore().collection('treasures')
     .onSnapshot(querySnapshot => {
       const treasures = querySnapshot.docs.map(documentSnapshot => {
         const data = documentSnapshot.data()
-        return {
-          identifier: data.identifier,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          radius: data.radius,
-        };
+        const e = l.includes(data.identifier)
+        if ( e != true ) {
+          return {
+            identifier: data.identifier,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            radius: data.radius,
+          };
+        } else {
+          return {
+            identifier: 'no data',
+            latitude: 37.79122481583162,
+            longitude: -122.40227584211668,
+            radius: data.radius,
+          }
+        }
       });
       setTreasures(treasures);
+      console.log(treasuresArray)
     });
     return () => treasuresRef()
   },[])
