@@ -27,6 +27,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.findgoodone",
       "buildNumber": "1.0.2",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
+      },
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Used to set your treasure and find placed treasures.",
@@ -41,6 +44,11 @@
       "package": "net.votepurchase.fgo",
       "versionCode": 4,
       "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC6zEvkDHr2cwrCwD5Pz4d8qvkWoXtSSRU"
+        }
+      },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

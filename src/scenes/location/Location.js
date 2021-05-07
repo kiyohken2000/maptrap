@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import styles from './styles'
-import MapView, { Marker } from 'react-native-maps'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
 export default function Location({  route, navigation }) {
   const location = route.params.Location
@@ -25,6 +25,7 @@ export default function Location({  route, navigation }) {
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
+          provider={PROVIDER_GOOGLE}
         >
           <Marker
             coordinate={coordinate}
