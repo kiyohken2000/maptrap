@@ -26,15 +26,15 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.findgoodone",
-      "buildNumber": "1.0.4",
+      "buildNumber": "1.0.5",
       "config": {
         "googleMapsApiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
       },
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and treasure image",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "Used to set your treasure and find placed treasures.",
-        "NSLocationWhenInUseUsageDescription": "Used to set your treasure.",
-        "NSLocationAlwaysUsageDescription": "Used to find placed treasures.",
+        "NSPhotoLibraryUsageDescription": "プロフィールのアバター画像と宝箱の画像を変更するためにフォトライブラリーを使用します",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "宝箱の設置と他のユーザーが設置した宝箱を探すために位置情報を使用します",
+        "NSLocationWhenInUseUsageDescription": "宝箱を設置するために位置情報を使用します",
+        "NSLocationAlwaysUsageDescription": "他のユーザーが設置した宝箱を探すために位置情報を使用します",
         "UIBackgroundModes": [
           "location"
         ]
