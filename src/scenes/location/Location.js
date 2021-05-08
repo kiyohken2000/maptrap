@@ -21,8 +21,8 @@ export default function Location({  route, navigation }) {
   return (
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
-      <View style={styles.mapcontainer}>
       {Platform.OS === 'ios'?
+      <View style={styles.mapcontainer}>
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
@@ -32,9 +32,11 @@ export default function Location({  route, navigation }) {
             title={location.treasureName}
             description={location.comment}
           />
-        </MapView>:
+        </MapView>
+      </View>:
+      <View style={styles.androidmapcontainer}>
         <MapView
-          style={styles.map}
+          style={styles.android}
           initialRegion={initialRegion}
           provider={PROVIDER_GOOGLE}
         >
@@ -44,8 +46,8 @@ export default function Location({  route, navigation }) {
             description={location.comment}
           />
         </MapView>
-      }
       </View>
+      }
     </View>
   )
 }

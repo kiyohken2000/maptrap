@@ -32,8 +32,8 @@ export default function Map({ route, navigation }) {
   return (
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
-      <View style={styles.mapcontainer}>
       {Platform.OS === 'ios'?
+      <View style={styles.mapcontainer}>
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
@@ -43,9 +43,11 @@ export default function Map({ route, navigation }) {
             coordinate={coordinate}
             onPress={setTreasure}
           />
-        </MapView>:
+        </MapView>
+      </View>:
+      <View style={styles.androidmapcontainer}>
         <MapView
-          style={styles.map}
+          style={styles.android}
           initialRegion={initialRegion}
           provider={PROVIDER_GOOGLE}
           onPress={(e)=> { stopPropagation( setRegion(e.nativeEvent.coordinate) ) }}
@@ -55,8 +57,8 @@ export default function Map({ route, navigation }) {
             onPress={setTreasure}
           />
         </MapView>
-      }
       </View>
+      }
     </View>
   )
 }
