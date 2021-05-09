@@ -38,7 +38,7 @@ export default function Home(props) {
   const [treasuresArray, setTreasures] = useState([])
   const [scan, setScan] = useState(false)
   const userData = props.extraData
-  const treasures = userData.treasure?userData.treasure:['8mCYBSAT5hikQmZzNKtg']
+  const treasures = userData.treasure?userData.treasure:['8WyBRI10fj80tjgVUXUd', 'KKOq3faOBaZSA2hNUZ6l']
 
   Notifications.addNotificationResponseReceivedListener(e => {
     if (e.notification.request.content.data.type === 'local') {
@@ -65,7 +65,8 @@ export default function Home(props) {
   useEffect(() => {
     const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
     const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
-    const l = t.concat(i)
+    const b = userData.items?userData.block:['D3N1apQknuBQX51MxFmG']
+    const l = t.concat(i, b)
     const treasuresRef = firebase.firestore().collection('treasures')
     .onSnapshot(querySnapshot => {
       const treasures = querySnapshot.docs.map(documentSnapshot => {

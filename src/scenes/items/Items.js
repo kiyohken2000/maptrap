@@ -7,7 +7,7 @@ import { Divider } from 'react-native-elements'
 export default function Items(props) {
   const userData = props.extraData
   const [theArray, setTheArray] = useState([])
-  const items = userData.items?userData.items:['8mCYBSAT5hikQmZzNKtg']
+  const items = userData.items?userData.items:['F8574LKGHDWrFp8kiXSo', 'GlQXgZXkHjRS76bjVXmX']
 
   useEffect(() => {
     setTheArray([])

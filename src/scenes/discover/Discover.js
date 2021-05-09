@@ -44,10 +44,26 @@ export default function Discover({ route, navigation}) {
   }
 
   const report = () => {
+    const date = new Date().getTime()
+    firebase.firestore().collection('report').doc(date).set({
+      treasureID: treasure.id,
+      creater: treasure.createrEmail,
+      name: treasure.treasureName,
+      comment: treasure.comment,
+      image: treasure.treasureImage
+    })
     alert('Report has been sent.')
   }
 
   const block = () => {
+    const userRef2 = firebase.firestore().collection('users2').doc(userData.email)
+    const userRef = firebase.firestore().collection('users').doc(userData.id)
+    userRef2.update({
+      block: firebase.firestore.FieldValue.arrayUnion(treasure.id)
+    })
+    userRef.update({
+      block: firebase.firestore.FieldValue.arrayUnion(treasure.id)
+    })
     alert('Added to the block list.')
   }
 
