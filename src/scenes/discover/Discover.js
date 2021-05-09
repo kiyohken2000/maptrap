@@ -44,10 +44,9 @@ export default function Discover({ route, navigation}) {
   }
 
   const report = () => {
-    const date = new Date()
-    const rtn_str = getStringFromDate(date)
-    const reportRef = firebase.firestore().collection('report').doc(rtn_str)
+    const reportRef = firebase.firestore().collection('report').doc()
     reportRef.set({
+      id: reportRef.id,
       treasureID: treasure.id,
       creater: treasure.createrEmail,
       name: treasure.treasureName,
