@@ -53,7 +53,12 @@ export default function Discover({ route, navigation}) {
       comment: treasure.comment,
       image: treasure.treasureImage
     })
-    alert('Report has been sent.')
+    .then(() => {
+      alert('Report has been sent.')
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
   }
 
   const block = () => {
