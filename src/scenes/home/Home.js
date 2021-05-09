@@ -65,7 +65,7 @@ export default function Home(props) {
   useEffect(() => {
     const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
     const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
-    const b = userData.items?userData.block:['D3N1apQknuBQX51MxFmG']
+    const b = userData.block?userData.block:['D3N1apQknuBQX51MxFmG']
     const l = t.concat(i, b)
     const treasuresRef = firebase.firestore().collection('treasures')
     .onSnapshot(querySnapshot => {
