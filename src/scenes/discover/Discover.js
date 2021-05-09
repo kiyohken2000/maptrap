@@ -44,7 +44,7 @@ export default function Discover({ route, navigation}) {
   }
 
   const report = () => {
-    const date = new Date().getTime()
+    const date = new Date()
     const rtn_str = getStringFromDate(date)
     const reportRef = firebase.firestore().collection('report').doc(rtn_str)
     reportRef.set({
