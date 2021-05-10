@@ -39,6 +39,10 @@ export default function Home(props) {
   const [scan, setScan] = useState(false)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8WyBRI10fj80tjgVUXUd', 'KKOq3faOBaZSA2hNUZ6l']
+  const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
+  const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
+  const b = userData.block?userData.block:['D3N1apQknuBQX51MxFmG']
+  const l = t.concat(i, b)
 
   Notifications.addNotificationResponseReceivedListener(e => {
     if (e.notification.request.content.data.type === 'local') {
@@ -51,9 +55,11 @@ export default function Home(props) {
 
   function start() {
     setScan(true)
+    get()
     const arry = treasuresArray
     console.log('start scan')
-    Location.startGeofencingAsync("test", arry, );
+    console.log(treasuresArray)
+    Location.startGeofencingAsync("test", arry);
   }
 
   function stop() {
@@ -62,11 +68,33 @@ export default function Home(props) {
     Location.stopGeofencingAsync("test")
   }
 
+  async function get() {
+    const treasuresRef = firebase.firestore().collection('treasures')
+    treasuresRef.onSnapshot(querySnapshot => {
+      const treasures = querySnapshot.docs.map(documentSnapshot => {
+        const data = documentSnapshot.data()
+        const e = l.includes(data.identifier)
+        if ( e != true ) {
+          return {
+            identifier: data.identifier,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            radius: data.radius,
+          };
+        } else {
+          return {
+            identifier: 'no data',
+            latitude: 37.79122481583162,
+            longitude: -122.40227584211668,
+            radius: data.radius,
+          }
+        }
+      });
+      setTreasures(treasures);
+    });
+  }
+
   useEffect(() => {
-    const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
-    const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
-    const b = userData.block?userData.block:['D3N1apQknuBQX51MxFmG']
-    const l = t.concat(i, b)
     const treasuresRef = firebase.firestore().collection('treasures')
     .onSnapshot(querySnapshot => {
       const treasures = querySnapshot.docs.map(documentSnapshot => {
@@ -89,7 +117,6 @@ export default function Home(props) {
         }
       });
       setTreasures(treasures);
-      console.log(treasuresArray)
     });
     return () => treasuresRef()
   },[])
