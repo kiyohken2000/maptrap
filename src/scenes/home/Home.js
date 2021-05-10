@@ -37,6 +37,7 @@ export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
   const [scan, setScan] = useState(false)
+  const [location, setLocation] = useState(null)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8WyBRI10fj80tjgVUXUd', 'KKOq3faOBaZSA2hNUZ6l']
   const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
@@ -69,56 +70,63 @@ export default function Home(props) {
   }
 
   async function get() {
-    const treasuresRef = firebase.firestore().collection('treasures')
-    treasuresRef.onSnapshot(querySnapshot => {
-      const treasures = querySnapshot.docs.map(documentSnapshot => {
-        const data = documentSnapshot.data()
-        const e = l.includes(data.identifier)
-        if ( e != true ) {
-          return {
-            identifier: data.identifier,
-            latitude: data.latitude,
-            longitude: data.longitude,
-            radius: data.radius,
-          };
-        } else {
-          return {
-            identifier: 'no data',
-            latitude: 37.79122481583162,
-            longitude: -122.40227584211668,
-            radius: data.radius,
+    (async () => {
+      let location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+      await firebase.firestore().collection('treasures')
+      .onSnapshot(querySnapshot => {
+        const treasures = querySnapshot.docs.map(documentSnapshot => {
+          const data = documentSnapshot.data()
+          const e = l.includes(data.identifier)
+          const lttd = location.coords.latitude - data.latitude
+          const lngtd = location.coords.longitude - data.longitude
+          if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
+            return {
+              identifier: data.identifier,
+              latitude: data.latitude,
+              longitude: data.longitude,
+              radius: data.radius,
+            };
+          } else {
+            return
           }
-        }
+        });
+        const y = treasures.filter(v => !!v)
+        setTreasures(y);
+        console.log(treasuresArray)
       });
-      setTreasures(treasures);
-    });
+    })();
   }
 
   useEffect(() => {
-    const treasuresRef = firebase.firestore().collection('treasures')
-    .onSnapshot(querySnapshot => {
-      const treasures = querySnapshot.docs.map(documentSnapshot => {
-        const data = documentSnapshot.data()
-        const e = l.includes(data.identifier)
-        if ( e != true ) {
-          return {
-            identifier: data.identifier,
-            latitude: data.latitude,
-            longitude: data.longitude,
-            radius: data.radius,
-          };
-        } else {
-          return {
-            identifier: 'no data',
-            latitude: 37.79122481583162,
-            longitude: -122.40227584211668,
-            radius: data.radius,
+    let unmounted = false;
+    (async () => {
+      let location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+      await firebase.firestore().collection('treasures')
+      .onSnapshot(querySnapshot => {
+        const treasures = querySnapshot.docs.map(documentSnapshot => {
+          const data = documentSnapshot.data()
+          const e = l.includes(data.identifier)
+          const lttd = location.coords.latitude - data.latitude
+          const lngtd = location.coords.longitude - data.longitude
+          if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
+            return {
+              identifier: data.identifier,
+              latitude: data.latitude,
+              longitude: data.longitude,
+              radius: data.radius,
+            };
+          } else {
+            return
           }
-        }
+        });
+        const y = treasures.filter(v => !!v)
+        setTreasures(y);
+        console.log(treasuresArray)
       });
-      setTreasures(treasures);
-    });
-    return () => treasuresRef()
+    })();
+    return () => { unmounted = true };
   },[])
 
   useEffect(() => {
@@ -190,7 +198,7 @@ export default function Home(props) {
       <View style={styles.Overlay}>
         <View style={{ flexDirection: 'row'}}>
           <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
-            {treasuresArray ?
+            {location ?
               (scan ?
                 (<TouchableOpacity onPress={stop}>
                   <Icon name="stop-circle" size={65} color="red"/>
