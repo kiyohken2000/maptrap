@@ -42,7 +42,7 @@
     },
     "android": {
       "package": "net.votepurchase.fgo",
-      "versionCode": 6,
+      "versionCode": 7,
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
@@ -52,6 +52,7 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
         "FOREGROUND_SERVICE"
       ]
     },
