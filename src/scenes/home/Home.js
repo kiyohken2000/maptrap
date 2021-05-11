@@ -127,6 +127,8 @@ export default function Home(props) {
         setErrorMsg("Permission to access location was denied");
         return;
       }
+      let location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
     })();
   },[])
 

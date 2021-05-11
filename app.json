@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FGO",
+    "name": "Find/GO",
     "slug": "findgoodone",
     "privacy": "public",
     "platforms": [
@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -35,7 +35,10 @@
         "NSLocationAlwaysAndWhenInUseUsageDescription": "宝箱の設置と他のユーザーが設置した宝箱を探すために位置情報を使用します",
         "NSLocationWhenInUseUsageDescription": "宝箱を設置するために位置情報を使用します",
         "NSLocationAlwaysUsageDescription": "他のユーザーが設置した宝箱を探すために位置情報を使用します",
-        "UIBackgroundModes": [ "location", "fetch" ]
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
       }
     },
     "android": {
