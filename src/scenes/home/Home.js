@@ -34,24 +34,15 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
   }
 });
 
-const TASK_NAME = "BACKGROUND_TASK"
-let clocation = null
-
-TaskManager.defineTask(TASK_NAME, async () => {
-  let receivedNewData = await Location.getCurrentPositionAsync({})
-  clocation = receivedNewData
-  console.log(clocation)
-  // alert('bg fetch')
-  // alert(clocation)
-});
-
 const YOUR_TASK_NAME = "BACKGROUND_location"
+let clocation = null
 TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
   if (error) {
     // check `error.message` for more details.
     return;
   }
-  console.log('Received new locations', locations);
+  clocation = locations
+  console.log('Received new locations', clocation);
 });
 
 export default function Home(props) {
@@ -74,15 +65,6 @@ export default function Home(props) {
       props.navigation.navigate('Home')
      }
   });
-
-  async function backGround() {
-    await BackgroundFetch.registerTaskAsync(TASK_NAME, {
-      minimumInterval: 1 * 2,
-      stopOnTerminate: false,
-      startOnBoot: true
-    });
-    console.log('backGround')
-  }
 
   function start() {
     setScan(true)
@@ -108,8 +90,8 @@ export default function Home(props) {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           const e = l.includes(data.identifier)
-          const lttd = clocation?clocation.coords.latitude:location.coords.latitude - data.latitude
-          const lngtd = clocation?clocation.coords.latitude:location.coords.longitude - data.longitude
+          const lttd = location.coords.latitude - data.latitude
+          const lngtd = location.coords.longitude - data.longitude
           if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
             return {
               identifier: data.identifier,
@@ -159,7 +141,6 @@ export default function Home(props) {
   useEffect(() => {
     let unmounted = false;
     get()
-    backGround()
     return () => { unmounted = true };
   },[])
 
