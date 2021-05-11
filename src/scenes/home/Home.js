@@ -102,7 +102,6 @@ export default function Home(props) {
         });
         const y = treasures.filter(v => !!v)
         setTreasures(y);
-        console.log(treasuresArray)
       });
     })();
   }
