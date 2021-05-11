@@ -41,6 +41,7 @@ TaskManager.defineTask(TASK_NAME, async () => {
   let receivedNewData = await Location.getCurrentPositionAsync({})
   clocation = receivedNewData
   console.log(clocation)
+  alert('bg fetch')
   alert(clocation)
 });
 
