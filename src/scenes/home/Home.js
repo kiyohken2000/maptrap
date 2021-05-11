@@ -136,6 +136,15 @@ export default function Home(props) {
   },[])
 
   useEffect(() => {
+    const isGeofencing = Location.hasStartedGeofencingAsync("test")
+    if (isGeofencing) {
+      setScan(false)
+    } else {
+      setScan(true)
+    }
+  },[])
+
+  useEffect(() => {
     let unmounted = false;
     get()
     backGround()
