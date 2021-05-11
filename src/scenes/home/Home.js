@@ -41,7 +41,6 @@ TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
     return;
   }
   clocation = locations
-  console.log('Received new locations', clocation);
 });
 
 export default function Home(props) {
@@ -70,7 +69,6 @@ export default function Home(props) {
     get()
     const arry = treasuresArray
     console.log('start scan')
-    console.log(treasuresArray)
     Location.startGeofencingAsync("test", arry);
   }
 
@@ -104,6 +102,7 @@ export default function Home(props) {
         });
         const y = treasures.filter(v => !!v)
         setTreasures(y);
+        console.log(treasuresArray)
       });
     })();
   }
