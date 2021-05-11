@@ -35,11 +35,13 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
 });
 
 const TASK_NAME = "BACKGROUND_TASK"
+let clocation = null
 
 TaskManager.defineTask(TASK_NAME, async () => {
   let receivedNewData = await Location.getCurrentPositionAsync({})
-  // alert(receivedNewData)
-  return receivedNewData
+  clocation = receivedNewData
+  console.log(clocation)
+  alert(clocation)
 });
 
 export default function Home(props) {
@@ -63,8 +65,8 @@ export default function Home(props) {
      }
   });
 
-  function fetchstart() {
-    console.log('fetch start')
+  function backGround() {
+    console.log('backGround')
     BackgroundFetch.registerTaskAsync(TASK_NAME, {
       minimumInterval: 1 * 2,
       stopOnTerminate: false,
@@ -135,6 +137,7 @@ export default function Home(props) {
   useEffect(() => {
     let unmounted = false;
     get()
+    backGround()
     return () => { unmounted = true };
   },[])
 
