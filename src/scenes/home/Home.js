@@ -45,6 +45,15 @@ TaskManager.defineTask(TASK_NAME, async () => {
   // alert(clocation)
 });
 
+const YOUR_TASK_NAME = "BACKGROUND_location"
+TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
+  if (error) {
+    // check `error.message` for more details.
+    return;
+  }
+  console.log('Received new locations', locations);
+});
+
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
@@ -118,6 +127,18 @@ export default function Home(props) {
     })();
   }
 
+  useEffect( () => {
+    console.log("watch")
+    const startWatching = async () => {
+      await Location.startLocationUpdatesAsync( YOUR_TASK_NAME, {
+        accuracy: Location.Accuracy.BestForNavigation,
+        deferredUpdatesInterval: 1000,
+        distanceInterval: 10
+      });
+    };
+    startWatching()
+  }, [] );
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -133,15 +154,6 @@ export default function Home(props) {
       let location = await Location.getCurrentPositionAsync({})
       setLocation(location)
     })();
-  },[])
-
-  useEffect(() => {
-    const isGeofencing = Location.hasStartedGeofencingAsync("test")
-    if (isGeofencing) {
-      setScan(false)
-    } else {
-      setScan(true)
-    }
   },[])
 
   useEffect(() => {
