@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { Text, View, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StatusBar, Image, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './styles'
 import { firebase } from '../../../firebase'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { Dialog } from 'react-native-simple-dialogs'
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [spinner, setSpinner] = useState(false)
+  const [dialog, setDialog] = useState(true)
 
   const onFooterLinkPress = () => {
     navigation.navigate('Registration')
@@ -46,6 +48,17 @@ export default function Login({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
+      {Platform.OS != 'ios'?
+        <Dialog
+          visible={dialog}
+          title="FGOは位置情報を使用します"
+          onTouchOutside={() => setDialog(false)} 
+        >
+          <View>
+            <Text>このアプリは、アプリが閉じているか使用されていない場合でも、宝箱を探すために位置情報を収集します</Text>
+          </View>
+        </Dialog>:null
+      }
       <KeyboardAwareScrollView
         style={{ flex: 1, width: '100%' }}
         keyboardShouldPersistTaps="always">

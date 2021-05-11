@@ -8100,6 +8100,14 @@ expo-asset@~8.3.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-background-fetch@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-9.1.0.tgz#f3ba0db0fb9993822497b7bed6077ea9e7dfdb18"
+  integrity sha512-vBA+qTugxTYhAlNcXQxUUXTR6Qm2H/6QA3OzfgZUFL2bvnATuJ6BLoA29mrxHRUtSIcPDjHD9PVBnGBOEyCnwA==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    expo-task-manager "~9.1.0"
+
 expo-cli@^3.20.0:
   version "3.28.0"
   resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-3.28.0.tgz#946a19846e7a9e3f3d40e37e1f2a12c3e111e358"
@@ -14672,6 +14680,11 @@ react-native-screens@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.0.0.tgz#ee4c2d69abf7411603868b57214feec5e8f637fa"
   integrity sha512-35II5oxTaVp3OP8y0eLPOPpQkxG4fRKQ+dL1YSE1we5kCZFOU0l/Rn0T79HbyUu1LPwUZr6lZupPs0ULnRyMuQ==
+
+react-native-simple-dialogs@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-dialogs/-/react-native-simple-dialogs-1.4.0.tgz#3379f093f4797b2a3609013eeaec41a29cd88220"
+  integrity sha512-EkVhiY9oDgumAIFA1qZUrvg068lRZa4fZoWYfTAAFZGmA495C4npdLmz6VMG3iRgWPwpp19JEzZLGaHYOURxBQ==
 
 react-native-size-matters@^0.3.1:
   version "0.3.1"

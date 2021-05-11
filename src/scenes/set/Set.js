@@ -109,7 +109,7 @@ export default function Set({ route, navigation }) {
               style={{height:150}}
               placeholder="your comment"
               rounded
-              multiline
+              multiline={true}
               onChangeText={(text) => setComment(text)}
               value={comment}
             />

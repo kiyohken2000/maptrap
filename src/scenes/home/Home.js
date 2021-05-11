@@ -6,6 +6,7 @@ import { Divider, Avatar } from 'react-native-elements'
 import * as Location from "expo-location"
 import * as TaskManager from 'expo-task-manager'
 import * as Notifications from 'expo-notifications'
+import * as BackgroundFetch from 'expo-background-fetch'
 import Icon from 'react-native-vector-icons/Feather'
 
 Notifications.setNotificationHandler({
@@ -33,6 +34,21 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
   }
 });
 
+const TASK_NAME = "BACKGROUND_TASK"
+
+TaskManager.defineTask(TASK_NAME, () => {
+  try {
+    // fetch data here...
+    const receivedNewData = "Simulated fetch " + Math.random()
+    console.log("My task ", receivedNewData)
+    return receivedNewData
+      ? BackgroundFetch.Result.NewData
+      : BackgroundFetch.Result.NoData
+  } catch (err) {
+    return BackgroundFetch.Result.Failed
+  }
+})
+
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
@@ -53,6 +69,17 @@ export default function Home(props) {
       props.navigation.navigate('Home')
      }
   });
+
+  RegisterBackgroundTask = async () => {
+    try {
+      await BackgroundFetch.registerTaskAsync(TASK_NAME, {
+        minimumInterval: 1, // seconds,
+      })
+      console.log("Task registered")
+    } catch (err) {
+      console.log("Task Register failed:", err)
+    }
+  }
 
   function start() {
     setScan(true)
@@ -93,39 +120,14 @@ export default function Home(props) {
         });
         const y = treasures.filter(v => !!v)
         setTreasures(y);
-        console.log(treasuresArray)
       });
     })();
   }
 
   useEffect(() => {
     let unmounted = false;
-    (async () => {
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(location)
-      await firebase.firestore().collection('treasures')
-      .onSnapshot(querySnapshot => {
-        const treasures = querySnapshot.docs.map(documentSnapshot => {
-          const data = documentSnapshot.data()
-          const e = l.includes(data.identifier)
-          const lttd = location.coords.latitude - data.latitude
-          const lngtd = location.coords.longitude - data.longitude
-          if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
-            return {
-              identifier: data.identifier,
-              latitude: data.latitude,
-              longitude: data.longitude,
-              radius: data.radius,
-            };
-          } else {
-            return
-          }
-        });
-        const y = treasures.filter(v => !!v)
-        setTreasures(y);
-        console.log(treasuresArray)
-      });
-    })();
+    get()
+    RegisterBackgroundTask()
     return () => { unmounted = true };
   },[])
 
@@ -207,7 +209,9 @@ export default function Home(props) {
                   <Icon name="play-circle" size={65} color="orange"/>
                 </TouchableOpacity>)
               ) :
-              (null)
+              (<View style={{opacity:0.1}}>
+                <Icon name="play-circle" size={65} color="orange"/>
+              </View>)
             }
           </View>
         </View>
