@@ -41,8 +41,8 @@ TaskManager.defineTask(TASK_NAME, async () => {
   let receivedNewData = await Location.getCurrentPositionAsync({})
   clocation = receivedNewData
   console.log(clocation)
-  alert('bg fetch')
-  alert(clocation)
+  // alert('bg fetch')
+  // alert(clocation)
 });
 
 export default function Home(props) {
@@ -66,13 +66,13 @@ export default function Home(props) {
      }
   });
 
-  function backGround() {
-    console.log('backGround')
-    BackgroundFetch.registerTaskAsync(TASK_NAME, {
+  async function backGround() {
+    await BackgroundFetch.registerTaskAsync(TASK_NAME, {
       minimumInterval: 1 * 2,
       stopOnTerminate: false,
       startOnBoot: true
     });
+    console.log('backGround')
   }
 
   function start() {
@@ -99,8 +99,8 @@ export default function Home(props) {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           const e = l.includes(data.identifier)
-          const lttd = location.coords.latitude - data.latitude
-          const lngtd = location.coords.longitude - data.longitude
+          const lttd = clocation?clocation.coords.latitude:location.coords.latitude - data.latitude
+          const lngtd = clocation?clocation.coords.latitude:location.coords.longitude - data.longitude
           if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
             return {
               identifier: data.identifier,
