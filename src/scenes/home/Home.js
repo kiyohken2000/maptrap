@@ -87,8 +87,10 @@ export default function Home(props) {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           const e = l.includes(data.identifier)
-          const lttd = clocation?clocation.coords.latitude:location.coords.latitude - data.latitude
-          const lngtd = clocation?clocation.coords.longitude:location.coords.longitude - data.longitude
+          const currentLttd = clocation ? clocation.coords.latitude : location.coords.latitude
+          const currentLngtd = clocation ? clocation.coords.longitude : location.coords.longitude
+          const lttd = currentLttd - data.latitude
+          const lngtd = currentLngtd - data.longitude
           if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
             return {
               identifier: data.identifier,
