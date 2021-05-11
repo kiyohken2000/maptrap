@@ -6,7 +6,6 @@ import { Divider, Avatar } from 'react-native-elements'
 import * as Location from "expo-location"
 import * as TaskManager from 'expo-task-manager'
 import * as Notifications from 'expo-notifications'
-import * as BackgroundFetch from 'expo-background-fetch'
 import Icon from 'react-native-vector-icons/Feather'
 
 Notifications.setNotificationHandler({
@@ -90,8 +89,8 @@ export default function Home(props) {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           const e = l.includes(data.identifier)
-          const lttd = location.coords.latitude - data.latitude
-          const lngtd = location.coords.longitude - data.longitude
+          const lttd = clocation?clocation.coords.latitude:location.coords.latitude - data.latitude
+          const lngtd = clocation?clocation.coords.longitude:location.coords.longitude - data.longitude
           if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
             return {
               identifier: data.identifier,
