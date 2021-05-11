@@ -40,7 +40,7 @@
     },
     "android": {
       "package": "net.votepurchase.fgo",
-      "versionCode": 8,
+      "versionCode": 9,
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {

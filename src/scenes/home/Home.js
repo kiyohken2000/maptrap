@@ -36,18 +36,11 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
 
 const TASK_NAME = "BACKGROUND_TASK"
 
-TaskManager.defineTask(TASK_NAME, () => {
-  try {
-    // fetch data here...
-    const receivedNewData = "Simulated fetch " + Math.random()
-    console.log("My task ", receivedNewData)
-    return receivedNewData
-      ? BackgroundFetch.Result.NewData
-      : BackgroundFetch.Result.NoData
-  } catch (err) {
-    return BackgroundFetch.Result.Failed
-  }
-})
+TaskManager.defineTask(TASK_NAME, async () => {
+  let receivedNewData = await Location.getCurrentPositionAsync({})
+  // alert(receivedNewData)
+  return receivedNewData
+});
 
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
@@ -70,15 +63,13 @@ export default function Home(props) {
      }
   });
 
-  RegisterBackgroundTask = async () => {
-    try {
-      await BackgroundFetch.registerTaskAsync(TASK_NAME, {
-        minimumInterval: 1, // seconds,
-      })
-      console.log("Task registered")
-    } catch (err) {
-      console.log("Task Register failed:", err)
-    }
+  function fetchstart() {
+    console.log('fetch start')
+    BackgroundFetch.registerTaskAsync(TASK_NAME, {
+      minimumInterval: 1 * 2,
+      stopOnTerminate: false,
+      startOnBoot: true
+    });
   }
 
   function start() {
@@ -125,9 +116,23 @@ export default function Home(props) {
   }
 
   useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let bg = await Location.requestBackgroundPermissionsAsync();
+      if (bg.status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
+  },[])
+
+  useEffect(() => {
     let unmounted = false;
     get()
-    RegisterBackgroundTask()
     return () => { unmounted = true };
   },[])
 

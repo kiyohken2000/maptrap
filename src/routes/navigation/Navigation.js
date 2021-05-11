@@ -71,19 +71,6 @@ export default function App() {
     await firebase.firestore().collection("tokens").doc(user.email).set({ token: token.data, email: user.email })
   })();
 
-  (async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-    let bg = await Location.requestBackgroundPermissionsAsync();
-    if (bg.status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-  })();
-
   if (loading) {
     return (
       <></>
