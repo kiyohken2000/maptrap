@@ -48,7 +48,7 @@ export default function Scan(props) {
       const treasureID = e.notification.request.content.data.id
       props.navigation.navigate('Discover', { treasureID: treasureID, myProfile: userData })
     } else { 
-      props.navigation.navigate('Home')
+      props.navigation.navigate('Scan')
      }
   });
 
