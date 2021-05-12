@@ -33,16 +33,6 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
   }
 });
 
-const YOUR_TASK_NAME = "BACKGROUND_location"
-let clocation = null
-TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
-  if (error) {
-    // check `error.message` for more details.
-    return;
-  }
-  clocation = locations
-});
-
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [treasuresArray, setTreasures] = useState([])
@@ -81,16 +71,19 @@ export default function Home(props) {
 
   async function get() {
     (async () => {
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(clocation?clocation:location)
+      let position = await Location.getCurrentPositionAsync({})
+      let p = location?location:position
+      // console.log('position',position)
+      // console.log('location',location)
       await firebase.firestore().collection('treasures')
       .onSnapshot(querySnapshot => {
+        // console.log('p',p)
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
           const e = l.includes(data.identifier)
-          const lttd = location.coords.latitude - data.latitude
-          const lngtd = location.coords.longitude - data.longitude
-          if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
+          const lttd = p.coords.latitude - data.latitude
+          const lngtd = p.coords.longitude - data.longitude
+          if ( e != true && -0.025 <= lttd && lttd <= 0.025 && -0.025 <= lngtd && lngtd <= 0.025 ) {
             return {
               identifier: data.identifier,
               latitude: data.latitude,
@@ -112,12 +105,35 @@ export default function Home(props) {
     const startWatching = async () => {
       await Location.startLocationUpdatesAsync( YOUR_TASK_NAME, {
         accuracy: Location.Accuracy.BestForNavigation,
-        deferredUpdatesInterval: 1000,
+        deferredUpdatesInterval: 10000,
         distanceInterval: 10
       });
     };
     startWatching()
   }, [] );
+
+  useEffect(() => {
+    async function getLocationAsync() {
+      let isGeofencing = await Location.hasStartedGeofencingAsync("test");
+      console.log(isGeofencing)
+      if (isGeofencing) {
+        setScan(false)
+      } else {
+        setScan(true)
+      }
+    }
+    getLocationAsync();
+  }, []);
+
+  const YOUR_TASK_NAME = "BACKGROUND_location"
+  let clocation = null
+  TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
+    if (error) {
+      // check `error.message` for more details.
+      return;
+    }
+    setLocation(locations[0])
+  });
 
   useEffect(() => {
     (async () => {
@@ -131,8 +147,8 @@ export default function Home(props) {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(location)
+      let position = await Location.getCurrentPositionAsync({})
+      setLocation(position)
     })();
   },[])
 
