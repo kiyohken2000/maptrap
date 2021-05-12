@@ -52,9 +52,9 @@ export default function Scan(props) {
      }
   });
 
-  function start() {
+  async function start() {
     setScan(true)
-    get()
+    await get()
     const arry = treasuresArray
     console.log('start scan')
     console.log(treasuresArray)
