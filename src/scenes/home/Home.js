@@ -83,7 +83,7 @@ export default function Home(props) {
           const e = l.includes(data.identifier)
           const lttd = p.coords.latitude - data.latitude
           const lngtd = p.coords.longitude - data.longitude
-          if ( e != true && -0.025 <= lttd && lttd <= 0.025 && -0.025 <= lngtd && lngtd <= 0.025 ) {
+          if ( e != true && -0.05 <= lttd && lttd <= 0.05 && -0.05 <= lngtd && lngtd <= 0.05 ) {
             return {
               identifier: data.identifier,
               latitude: data.latitude,
