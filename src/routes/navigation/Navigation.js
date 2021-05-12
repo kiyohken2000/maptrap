@@ -18,6 +18,7 @@ import Map from '../../scenes/map'
 import Set from '../../scenes/set'
 import Items from '../../scenes/items'
 import Item from '../../scenes/item'
+import Scan from '../../scenes/scan'
 import Discover from '../../scenes/discover'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions"
@@ -89,9 +90,6 @@ export default function App() {
         <Stack.Screen name="Location">
           {props => <Local {...props} extraData={user} />}
         </Stack.Screen>
-        <Stack.Screen name="Discover">
-          {props => <Discover {...props} extraData={user} />}
-        </Stack.Screen>
       </Stack.Navigator>
     )
   }
@@ -137,6 +135,19 @@ export default function App() {
     )
   }
 
+  const DiscoverNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Scan">
+          {props => <Scan {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Discover">
+          {props => <Discover {...props} extraData={user} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+
   const TabNavigator = () => (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -155,6 +166,15 @@ export default function App() {
               return (
                 <FontIcon
                   name="gift"
+                  color={focused ? colors.lightPurple : colors.gray}
+                  size={20}
+                  solid
+                />
+              )
+            case 'Discover':
+              return (
+                <FontIcon
+                  name="map-marker-alt"
                   color={focused ? colors.lightPurple : colors.gray}
                   size={20}
                   solid
@@ -183,6 +203,7 @@ export default function App() {
     >
       <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Items" component={ItemsNavigator} />
+      <Tab.Screen name="Discover" component={DiscoverNavigator} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
     </Tab.Navigator>
   )
