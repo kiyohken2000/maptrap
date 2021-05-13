@@ -36,8 +36,11 @@ export default StyleSheet.create({
     flex: 1,
     position: "absolute",
     opacity: 1.0,
-    bottom: 60,
+    bottom: 90,
     right: 30,
     justifyContent: "center",
   },
+  serch: {
+    marginBottom: 10
+  }
 })

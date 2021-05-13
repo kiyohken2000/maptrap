@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
+import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { firebase } from '../../../firebase'
@@ -37,6 +37,7 @@ export default function Scan(props) {
   const [location, setLocation] = useState(null)
   const [treasuresArray, setTreasures] = useState([])
   const [scan, setScan] = useState(false)
+  const [isLoading, setLoding] = useState(false)
   const userData = props.extraData
   const t = userData.treasure?userData.treasure:['D3N1apQknuBQX51MxFmG']
   const i = userData.items?userData.items:['D3N1apQknuBQX51MxFmG']
@@ -54,10 +55,8 @@ export default function Scan(props) {
 
   async function start() {
     setScan(true)
-    await get()
     const arry = treasuresArray
     console.log('start scan')
-    console.log(treasuresArray)
     Location.startGeofencingAsync("test", arry);
   }
 
@@ -69,6 +68,7 @@ export default function Scan(props) {
 
   async function get() {
     (async () => {
+      setLoding(true)
       let position = await Location.getCurrentPositionAsync({})
       setLocation(position)
       let p = location ? location : position
@@ -79,7 +79,7 @@ export default function Scan(props) {
           const e = l.includes(data.identifier)
           const lttd = p.coords.latitude - data.latitude
           const lngtd = p.coords.longitude - data.longitude
-          if ( e != true && -0.1 <= lttd && lttd <= 0.1 && -0.1 <= lngtd && lngtd <= 0.1 ) {
+          if ( e != true && -0.07 <= lttd && lttd <= 0.07 && -0.07 <= lngtd && lngtd <= 0.07 ) {
             return {
               identifier: data.identifier,
               latitude: data.latitude,
@@ -91,16 +91,20 @@ export default function Scan(props) {
           }
         });
         const y = treasures.filter(v => !!v)
+        console.log('y=',y)
         setTreasures(y);
       });
+      setLoding(false)
     })();
   }
 
   useEffect(() => {
+    let unmounted = false;
     (async () => {
       let position = await Location.getCurrentPositionAsync({})
       setLocation(position)
     })();
+    return () => { unmounted = true };
   },[])
 
   useEffect(() => {
@@ -196,26 +200,32 @@ export default function Scan(props) {
         </View>
     ) :
     (<View>
+      <ActivityIndicator size="large" />
       <Text>Loading...</Text>
     </View>)
     }
-    <View style={styles.Overlay}>
-        <View style={{ flexDirection: 'row'}}>
-          <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
-            {location ?
-              (scan ?
-                (<TouchableOpacity onPress={stop}>
-                  <Icon name="stop-circle" size={65} color="red"/>
-                </TouchableOpacity>) :
-                (<TouchableOpacity onPress={start}>
-                  <Icon name="play-circle" size={65} color="orange"/>
-                </TouchableOpacity>)
-              ) :
-              (<View style={{opacity:0.1}}>
+      <View style={styles.Overlay}>
+        <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
+          {location ?
+            (isLoading ?
+              (<View style={styles.serch}>
+                <ActivityIndicator size="large" />
+              </View>):
+              (<TouchableOpacity style={styles.serch} onPress={get}>
+                <Icon name="rotate-cw" size={65} color="blue"/>
+              </TouchableOpacity>)
+            ) :null
+          }
+          {location ?
+            (scan ?
+              (<TouchableOpacity onPress={stop}>
+                <Icon name="stop-circle" size={65} color="red"/>
+              </TouchableOpacity>) :
+              (<TouchableOpacity onPress={start}>
                 <Icon name="play-circle" size={65} color="orange"/>
-              </View>)
-            }
-          </View>
+              </TouchableOpacity>)
+            ) :null
+          }
         </View>
       </View>
     </View>
