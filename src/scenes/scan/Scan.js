@@ -79,7 +79,7 @@ export default function Scan(props) {
           const e = l.includes(data.identifier)
           const lttd = p.coords.latitude - data.latitude
           const lngtd = p.coords.longitude - data.longitude
-          if ( e != true && -0.07 <= lttd && lttd <= 0.07 && -0.07 <= lngtd && lngtd <= 0.07 ) {
+          if ( e != true && -0.08 <= lttd && lttd <= 0.08 && -0.08 <= lngtd && lngtd <= 0.08 ) {
             return {
               identifier: data.identifier,
               latitude: data.latitude,
