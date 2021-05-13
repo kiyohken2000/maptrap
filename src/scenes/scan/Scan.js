@@ -70,6 +70,7 @@ export default function Scan(props) {
   async function get() {
     (async () => {
       let position = await Location.getCurrentPositionAsync({})
+      setLocation(position)
       let p = location ? location : position
       await firebase.firestore().collection('treasures')
       .onSnapshot(querySnapshot => {
@@ -102,18 +103,6 @@ export default function Scan(props) {
     })();
   },[])
 
-  useEffect( () => {
-    console.log("watch")
-    const startWatching = async () => {
-      await Location.startLocationUpdatesAsync( YOUR_TASK_NAME, {
-        accuracy: Location.Accuracy.BestForNavigation,
-        deferredUpdatesInterval: 10000,
-        distanceInterval: 10
-      });
-    };
-    startWatching()
-  },[]);
-
   useEffect(() => {
     async function getLocationAsync() {
       let isGeofencing = await Location.hasStartedGeofencingAsync("test");
@@ -127,6 +116,19 @@ export default function Scan(props) {
     getLocationAsync();
   }, []);
 
+  /*
+  useEffect( () => {
+    console.log("watch")
+    const startWatching = async () => {
+      await Location.startLocationUpdatesAsync( YOUR_TASK_NAME, {
+        accuracy: Location.Accuracy.BestForNavigation,
+        deferredUpdatesInterval: 10000,
+        distanceInterval: 10
+      });
+    };
+    startWatching()
+  },[]);
+
   const YOUR_TASK_NAME = "BACKGROUND_location"
   TaskManager.defineTask(YOUR_TASK_NAME, ({ data: { locations }, error }) => {
     if (error) {
@@ -135,6 +137,7 @@ export default function Scan(props) {
     }
     setLocation(locations[0])
   });
+  */
 
   const initialRegion = {
     latitude : location ? location.coords.latitude : 35.67594029207871,
