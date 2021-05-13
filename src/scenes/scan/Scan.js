@@ -95,6 +95,7 @@ export default function Scan(props) {
         setTreasures(y);
       });
       setLoding(false)
+      Location.stopGeofencingAsync("test")
       setScan(false)
     })();
   }
