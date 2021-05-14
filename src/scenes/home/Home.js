@@ -3,11 +3,28 @@ import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity } from 'reac
 import styles from './styles'
 import { firebase } from '../../../firebase'
 import { Divider, Avatar } from 'react-native-elements'
+import * as Location from "expo-location"
 
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
+  const [errorMsg, setErrorMsg] = useState(null)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8WyBRI10fj80tjgVUXUd', 'KKOq3faOBaZSA2hNUZ6l']
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+        let bg = await Location.requestBackgroundPermissionsAsync();
+        if (bg.status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+    })();
+  },[])
 
   useEffect(() => {
     setTheArray([])
