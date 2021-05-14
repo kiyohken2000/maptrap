@@ -25,7 +25,7 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
     Notifications.scheduleNotificationAsync({
       content: {
         title: 'Discovering!!!',
-        body: 'Tap to get it.',
+        body: 'Open the Discover tab!',
         sound: 'default',
         data: { message: 'geofence notification message', id: region.identifier, type: 'local' },
       },
@@ -172,7 +172,7 @@ export default function Scan(props) {
             <Marker
               coordinate={coordinate}
               pinColor='blue'
-              title='Current position'
+              title='Now here'
             />
             {treasuresArray.map((marker, index) => (
               <Marker
@@ -191,7 +191,7 @@ export default function Scan(props) {
             <Marker
               coordinate={coordinate}
               pinColor='blue'
-              title='Current position'
+              title='Now here'
             />
             {treasuresArray.map((marker, index) => (
               <Marker
