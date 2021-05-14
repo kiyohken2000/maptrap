@@ -26,6 +26,7 @@ TaskManager.defineTask("test", ({ data: { eventType, region }, error }) => {
       content: {
         title: 'Discovering!!!',
         body: 'Tap to get it.',
+        sound: 'default',
         data: { message: 'geofence notification message', id: region.identifier, type: 'local' },
       },
       trigger: null //{ seconds: 1 }

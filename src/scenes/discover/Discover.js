@@ -5,7 +5,7 @@ import { firebase } from '../../../firebase'
 import { Divider } from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 
-export default function Discover({ route, navigation}) {
+export default function Discover({ route, navigation }) {
   const userData = route.params.myProfile
   const treasureID = route.params.treasureID
   const [treasure, setTreasure] = useState([])
