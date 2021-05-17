@@ -12,6 +12,7 @@ export default function Discover({ route, navigation }) {
   const [dialog, setDialog] = useState(false)
 
   useEffect(() => {
+    let isMounted = true
     const treasureRef = firebase.firestore().collection('treasures').doc(treasureID)
     treasureRef.get().then((doc) => {
       if (doc.exists) {
@@ -24,6 +25,7 @@ export default function Discover({ route, navigation }) {
         null
       }
     })
+    return () => { isMounted = false }
   },[])
 
   const getItem = () => {

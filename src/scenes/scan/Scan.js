@@ -54,7 +54,7 @@ export default function Scan(props) {
      }
   });
 
-  async function start() {
+  function start() {
     setScan(true)
     const arry = treasuresArray
     console.log('start scan')
@@ -67,7 +67,7 @@ export default function Scan(props) {
     Location.stopGeofencingAsync("test")
   }
 
-  async function get() {
+  function get() {
     (async () => {
       setLoding(true)
       let position = await Location.getCurrentPositionAsync({})
