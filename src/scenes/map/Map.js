@@ -6,6 +6,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 export default function Map({ route, navigation }) {
   const data = route.params.Data
   const location = route.params.Location.coords
+  const current = route.params.Location.coords
   const [region, setRegion] = useState(location)
 
   const initialRegion = {
@@ -26,6 +27,11 @@ export default function Map({ route, navigation }) {
   };
 
   function setTreasure() {
+    const lttd = current.latitude - coordinate.latitude
+    const lngtd = current.longitude - coordinate.longitude
+    if ( -0.08 <= lttd && lttd <= 0.08 && -0.08 <= lngtd && lngtd <= 0.08 ) {
+      navigation.navigate('Set', {Data: data, Location: coordinate, nearBy: 'nearBy'})
+    }
     navigation.navigate('Set', {Data: data, Location: coordinate})
   }
   

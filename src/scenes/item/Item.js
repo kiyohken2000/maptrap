@@ -86,6 +86,12 @@ export default function Item({ route, navigation }) {
         <Text style={styles.title}>{item.treasureName}</Text>
         <Text style={styles.field}>Comment:</Text>
         <Text style={styles.title}>{item.comment}</Text>
+        {item.extraComment?
+          <>
+            <Text style={styles.field}>Extra Comment:</Text>
+            <Text style={styles.title}>{item.extraComment}</Text>
+          </>:null
+        }
         <TouchableOpacity style={styles.button} onPress={goMap}>
           <Text style={styles.buttonText}>Map</Text>
         </TouchableOpacity>

@@ -11,8 +11,10 @@ import Constants from 'expo-constants'
 export default function Set({ route, navigation }) {
   const data = route.params.Data
   const region = route.params.Location
+  const nearBy = route.params.nearBy
   const [treasureName, setTreasureName] = useState('')
   const [comment, setComment] = useState('')
+  const [extra, setExtra] = useState('')
   const [progress, setProgress] = useState('')
   const [treasureImage, setTreasureImage] = useState('https://firebasestorage.googleapis.com/v0/b/maptrap.appspot.com/o/logo.jpg?alt=media&token=761783a0-6e90-4b9f-a46d-c753523e9f25')
 
@@ -64,7 +66,8 @@ export default function Set({ route, navigation }) {
       createdTime: new Date().getTime(),
       createrEmail: data.email,
       createrId: data.id,
-      treasureImage: treasureImage
+      treasureImage: treasureImage,
+      extraComment: extra
     })
     const userRef1 = firebase.firestore().collection('users').doc(data.id)
     userRef1.update({
@@ -103,7 +106,7 @@ export default function Set({ route, navigation }) {
               onChangeText={(text) => setTreasureName(text)}
               value={treasureName}
             />
-            <Text>Comments</Text>
+            <Text>Comment</Text>
             <Input
               name='comment'
               style={{height:150}}
@@ -113,6 +116,32 @@ export default function Set({ route, navigation }) {
               onChangeText={(text) => setComment(text)}
               value={comment}
             />
+            {nearBy?
+            <View style={{ flex: 1, width: '100%' }}>
+              <Text style={styles.description}>Extra Comment</Text>
+              <Input
+                name='link'
+                placeholder="Extra Comment"
+                rounded
+                onChangeText={(text) => setExtra(text)}
+                value={extra}
+                dataDetectorTypes='link'
+              />
+            </View>:
+            <View style={{ flex: 1, width: '100%' }}>
+              <Text style={styles.description}>Extra Comment</Text>
+              <Input
+                name='link'
+                placeholder="Only when you select near."
+                rounded
+                onChangeText={(text) => setExtra(text)}
+                value={extra}
+                dataDetectorTypes='link'
+                editable={false}
+                bgColor='#CCCCCC'
+              />
+            </View>
+            }
             <View style={styles.buttonContainer}>
               {comment?<TouchableOpacity style={styles.tbutton} onPress={setTreasure}>
                 <Text style={styles.buttonText}>Set</Text>
