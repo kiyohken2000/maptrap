@@ -109,7 +109,7 @@ export default function Home(props) {
           <Text style={styles.buttonTitle}>Overlooking</Text>
         </TouchableOpacity>:
         <View style={styles.disableoverlooking}>
-        <Text style={styles.buttonTitle}>Overlooking</Text>
+          <Text style={styles.buttonTitle}>Overlooking</Text>
         </View>}
       </View>
     </View>
