@@ -48,7 +48,7 @@ export default StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 5,
-    borderRadius: 20,
+    borderRadius: 40,
     backgroundColor: '#788eec',
     alignItems: "center",
     justifyContent: 'center'
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 5,
-    borderRadius: 20,
+    borderRadius: 40,
     backgroundColor: '#CCCCCC',
     alignItems: "center",
     justifyContent: 'center'
