@@ -8,6 +8,7 @@ import * as Location from "expo-location"
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const [errorMsg, setErrorMsg] = useState(null)
+  const [location, setLocation] = useState(null)
   const userData = props.extraData
   const treasures = userData.treasure?userData.treasure:['8WyBRI10fj80tjgVUXUd', 'KKOq3faOBaZSA2hNUZ6l']
 
@@ -24,6 +25,15 @@ export default function Home(props) {
           return;
         }
     })();
+  },[])
+
+  useEffect(() => {
+    let unmounted = false;
+    (async () => {
+      let position = await Location.getCurrentPositionAsync({})
+      setLocation(position)
+    })();
+    return () => { unmounted = true };
   },[])
 
   useEffect(() => {
@@ -91,6 +101,16 @@ export default function Home(props) {
           }
         </ScrollView>:
         <Text>No data</Text>}
+        {location?
+        <TouchableOpacity
+          style={styles.overlooking}
+          onPress={() => props.navigation.navigate('Overlooking', { treasures: myTreasure, location: location })}
+        >
+          <Text style={styles.buttonTitle}>Overlooking</Text>
+        </TouchableOpacity>:
+        <View style={styles.disableoverlooking}>
+        <Text style={styles.buttonTitle}>Overlooking</Text>
+        </View>}
       </View>
     </View>
   )

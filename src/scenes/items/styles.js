@@ -43,4 +43,29 @@ export default StyleSheet.create({
     height: 100,
     borderRadius: 20,
   },
+  overlooking: {
+    height: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    borderRadius: 20,
+    backgroundColor: '#788eec',
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  disableoverlooking: {
+    height: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    borderRadius: 20,
+    backgroundColor: '#CCCCCC',
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  buttonTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: "bold"
+  },
 })

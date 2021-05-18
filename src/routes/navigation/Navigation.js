@@ -11,6 +11,7 @@ import * as Location from 'expo-location'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
+import Overlooking from '../../scenes/overlooking'
 import Treasure from '../../scenes/treasure'
 import Local from '../../scenes/location'
 import Profile from '../../scenes/profile'
@@ -90,6 +91,9 @@ export default function App() {
         <Stack.Screen name="Location">
           {props => <Local {...props} extraData={user} />}
         </Stack.Screen>
+        <Stack.Screen name="Overlooking">
+          {props => <Overlooking {...props} extraData={user} />}
+        </Stack.Screen>
       </Stack.Navigator>
     )
   }
@@ -130,6 +134,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Location">
           {props => <Local {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Overlooking">
+          {props => <Overlooking {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )

@@ -3,10 +3,12 @@ import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } 
 import styles from './styles'
 import { firebase } from '../../../firebase'
 import { Divider } from 'react-native-elements'
+import * as Location from "expo-location"
 
 export default function Items(props) {
   const userData = props.extraData
   const [theArray, setTheArray] = useState([])
+  const [location, setLocation] = useState(null)
   const items = userData.items?userData.items:['F8574LKGHDWrFp8kiXSo', 'GlQXgZXkHjRS76bjVXmX']
 
   useEffect(() => {
@@ -25,6 +27,15 @@ export default function Items(props) {
         }
       })
     }
+  },[])
+
+  useEffect(() => {
+    let unmounted = false;
+    (async () => {
+      let position = await Location.getCurrentPositionAsync({})
+      setLocation(position)
+    })();
+    return () => { unmounted = true };
   },[])
 
   /*theArray.sort(function(a, b) {
@@ -76,6 +87,16 @@ export default function Items(props) {
           }
         </ScrollView>:
         <Text>No data</Text>}
+        {location?
+        <TouchableOpacity
+          style={styles.overlooking}
+          onPress={() => props.navigation.navigate('Overlooking', { treasures:myItems, location: location })}
+        >
+          <Text style={styles.buttonTitle}>Overlooking</Text>
+        </TouchableOpacity>:
+        <View style={styles.disableoverlooking}>
+        <Text style={styles.buttonTitle}>Overlooking</Text>
+        </View>}
       </View>
     </View>
   )
