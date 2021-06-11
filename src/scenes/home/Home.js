@@ -37,22 +37,25 @@ export default function Home(props) {
   },[])
 
   useEffect(() => {
-    setTheArray([])
-    for (const treasure of treasures) {
-      const treasureRef = firebase.firestore().collection('treasures').doc(treasure)
-      treasureRef.get().then((doc) => {
-        if (doc.exists) {
-          treasureRef
-          .onSnapshot(function(document) {
-            const data = document.data()
-            setTheArray(oldArray => [...oldArray, data])
-          })
-        } else {
-          null
-        }
-      })
+    const treasureListner = () => {
+      setTheArray([])
+      for (const treasure of treasures) {
+        const treasureRef = firebase.firestore().collection('treasures').doc(treasure)
+        treasureRef.get().then((doc) => {
+          if (doc.exists) {
+            treasureRef
+            .onSnapshot(function(document) {
+              const data = document.data()
+              setTheArray(oldArray => [...oldArray, data])
+            })
+          } else {
+            null
+          }
+        })
+      }
     }
-  },[])
+    treasureListner()
+  },[userData])
 
   theArray.sort(function(a, b) {
     if (a.createdTime > b.createdTime) {
@@ -62,7 +65,7 @@ export default function Home(props) {
     }
   })
 
-  var myTreasure = theArray.filter(function(v1,i1,a1){ 
+  var treasuresArray = theArray.filter(function(v1,i1,a1){ 
     return (a1.findIndex(function(v2){ 
       return (v1.id===v2.id) 
     }) === i1);
@@ -77,9 +80,9 @@ export default function Home(props) {
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
       <View style={{ flex: 1, width: '100%' }}>
-        {treasures?<ScrollView>
+        <ScrollView>
           {
-            myTreasure.map((treasure, i) => {
+            treasuresArray.map((treasure, i) => {
               return (
                 <View key={i} style={styles.item}>
                   <TouchableOpacity onPress={() => props.navigation.navigate('Treasure', { treasureData: treasure, myProfile: userData })}>
@@ -99,12 +102,11 @@ export default function Home(props) {
               )
             })
           }
-        </ScrollView>:
-        <Text>No data</Text>}
+        </ScrollView>
         {location?
         <TouchableOpacity
           style={styles.overlooking}
-          onPress={() => props.navigation.navigate('Overlooking', { treasures: myTreasure, location: location })}
+          onPress={() => props.navigation.navigate('Overlooking', { treasures: theArray, location: location })}
         >
           <Text style={styles.buttonTitle}>Overlooking</Text>
         </TouchableOpacity>:

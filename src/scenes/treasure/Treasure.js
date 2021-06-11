@@ -11,21 +11,24 @@ export default function Treasure({ route, navigation}) {
   const [theArray, setTheArray] = useState([])
 
   useEffect(() => {
-    setTheArray([])
-    for (const u of picked) {
-      const usersRef = firebase.firestore().collection('users2').doc(u)
-      usersRef.get().then((doc) => {
-        if (doc.exists) {
-          usersRef
-          .onSnapshot(function(document) {
-            const data = document.data()
-            setTheArray(oldArray => [...oldArray, data])
-          })
-        } else {
-          null
-        }
-      })
+    const treasureListner = () => {
+      setTheArray([])
+      for (const u of picked) {
+        const usersRef = firebase.firestore().collection('users2').doc(u)
+        usersRef.get().then((doc) => {
+          if (doc.exists) {
+            usersRef
+            .onSnapshot(function(document) {
+              const data = document.data()
+              setTheArray(oldArray => [...oldArray, data])
+            })
+          } else {
+            null
+          }
+        })
+      }
     }
+    treasureListner()
   },[])
 
   theArray.reverse()
@@ -46,10 +49,10 @@ export default function Treasure({ route, navigation}) {
     userRef.update({
       treasure: firebase.firestore.FieldValue.arrayRemove(treasure.id)
     })
-    treasureRef.delete().then(() => {
-      console.log("Document successfully deleted!");
-    }).catch((error) => {
-        console.error("Error removing document: ", error);
+    treasureRef.set({ del: true }, {merge: true}).then(() => {
+        console.log('delete')
+    }).catch(error => {
+        console.log(error)
     })
     navigation.goBack()
   }

@@ -82,6 +82,7 @@ export default function Registration({navigation}) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          keyboardType={'email-address'}
         />
         <TextInput
           style={styles.input}

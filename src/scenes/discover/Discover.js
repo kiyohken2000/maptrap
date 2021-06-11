@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../../firebase'
-import { Divider } from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 
 export default function Discover({ route, navigation }) {
@@ -42,7 +41,7 @@ export default function Discover({ route, navigation }) {
       picked: firebase.firestore.FieldValue.arrayUnion(userData.email)
     })
     setDialog(false)
-    // navigation.goBack()
+    navigation.navigate('Scan')
   }
 
   const report = () => {
@@ -57,6 +56,7 @@ export default function Discover({ route, navigation }) {
     })
     .then(() => {
       alert('Report has been sent.')
+      navigation.navigate('Scan')
     })
     .catch((error) => {
       console.error("Error writing document: ", error);
@@ -73,6 +73,7 @@ export default function Discover({ route, navigation }) {
       block: firebase.firestore.FieldValue.arrayUnion(treasure.id)
     })
     alert('Added to the block list.')
+    navigation.navigate('Scan')
   }
 
   function goMap() {

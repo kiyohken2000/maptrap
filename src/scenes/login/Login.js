@@ -77,6 +77,7 @@ export default function Login({navigation}) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          keyboardType={'email-address'}
         />
         <TextInput
           style={styles.input}

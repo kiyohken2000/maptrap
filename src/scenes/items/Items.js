@@ -12,22 +12,25 @@ export default function Items(props) {
   const items = userData.items?userData.items:['F8574LKGHDWrFp8kiXSo', 'GlQXgZXkHjRS76bjVXmX']
 
   useEffect(() => {
-    setTheArray([])
-    for (const item of items) {
-      const treasureRef = firebase.firestore().collection('treasures').doc(item)
-      treasureRef.get().then((doc) => {
-        if (doc.exists) {
-          treasureRef
-          .onSnapshot(function(document) {
-            const data = document.data()
-            setTheArray(oldArray => [...oldArray, data])
-          })
-        } else {
-          null
-        }
-      })
+    const itemsListner = () => {
+      setTheArray([])
+      for (const item of items) {
+        const treasureRef = firebase.firestore().collection('treasures').doc(item)
+        treasureRef.get().then((doc) => {
+          if (doc.exists) {
+            treasureRef
+            .onSnapshot(function(document) {
+              const data = document.data()
+              setTheArray(oldArray => [...oldArray, data])
+            })
+          } else {
+            null
+          }
+        })
+      }
     }
-  },[])
+    itemsListner()
+  },[userData])
 
   useEffect(() => {
     let unmounted = false;
@@ -54,6 +57,8 @@ export default function Items(props) {
     }) === i1);
   });
 
+  const treasureArray = myItems.filter(value => value.del != true)
+
   function displaytime(timestamp) {
     const time = new Date(timestamp).toISOString().substr(0, 10)
     return time
@@ -65,7 +70,7 @@ export default function Items(props) {
       <View style={{ flex: 1, width: '100%' }}>
         {items?<ScrollView>
           {
-            myItems.map((item, i) => {
+            treasureArray.map((item, i) => {
               return (
                 <View key={i} style={styles.item}>
                   <TouchableOpacity onPress={() => props.navigation.navigate('Item', { itemData: item, myProfile: userData })}>

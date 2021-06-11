@@ -77,10 +77,11 @@ export default function Scan(props) {
       .onSnapshot(querySnapshot => {
         const treasures = querySnapshot.docs.map(documentSnapshot => {
           const data = documentSnapshot.data()
+          const del = data.del
           const e = l.includes(data.identifier)
           const lttd = p.coords.latitude - data.latitude
           const lngtd = p.coords.longitude - data.longitude
-          if ( e != true && -0.08 <= lttd && lttd <= 0.08 && -0.08 <= lngtd && lngtd <= 0.08 ) {
+          if ( e != true && -0.08 <= lttd && lttd <= 0.08 && -0.08 <= lngtd && lngtd <= 0.08 && del != true) {
             return {
               identifier: data.identifier,
               latitude: data.latitude,

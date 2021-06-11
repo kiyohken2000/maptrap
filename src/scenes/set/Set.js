@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, StatusBar, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
-import { Divider, Avatar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Input } from 'galio-framework'
 import { firebase } from '../../../firebase'
@@ -79,6 +78,8 @@ export default function Set({ route, navigation }) {
     })
     setTreasureName('')
     setComment('')
+    setExtra('')
+    navigation.navigate('Profile')
   }
   
   return (

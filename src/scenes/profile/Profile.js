@@ -7,11 +7,12 @@ import * as Location from 'expo-location'
 import { Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
 import Constants from 'expo-constants'
-import { Input } from 'galio-framework'
+import { Input, Toast } from 'galio-framework'
 
 export default function Profile( props ) {
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
+  const [isShow, setShow] = useState(false)
   const [fullName, setFullName] = useState(props.extraData.fullName)
   const [progress, setProgress] = useState('')
   const [avatar, setAvatar] = useState(props.extraData.avatar)
@@ -23,6 +24,10 @@ export default function Profile( props ) {
       setLocation(location)
     })();
   }, []);
+
+  function hideToast() {
+    setShow(false)
+  }
 
   const ImageChoiceAndUpload = async () => {
     try {
@@ -60,6 +65,7 @@ export default function Profile( props ) {
   }
 
   const profileUpdate = () => {
+    setShow(true)
     const data = {
       id: userData.id,
       email: userData.email,
@@ -70,6 +76,7 @@ export default function Profile( props ) {
     userRef2.update(data)
     const userRef = firebase.firestore().collection('users').doc(userData.id)
     userRef.update(data)
+    setTimeout(hideToast, 2000)
   }
 
   function goMap() {
@@ -94,6 +101,9 @@ export default function Profile( props ) {
     <View style={styles.root}>
     <StatusBar barStyle="light-content" />
       <ScrollView style={{ flex: 1, width: '100%' }}>
+        <Toast isShow={isShow} positionIndicator="center" color="#f0f8ff" round={true}>
+          <Text style={styles.toastText}>Profile update</Text>
+        </Toast>
         <View>
           <View style={styles.avatar}>
             <Avatar
